@@ -154,12 +154,14 @@
     display:inline-flex;
     align-items:center;
     gap:10px;
-    transition:transform .35s cubic-bezier(.34,1.56,.64,1), box-shadow .3s ease;
+    transition:transform .3s cubic-bezier(.23,1,.32,1), box-shadow .3s ease;
   }
-  .view-menu-btn:active{transform:scale(.94);}
-  .view-menu-btn:hover{transform:scale(1.04); box-shadow:0 10px 26px rgba(0,0,0,.32);}
-  .view-menu-btn svg{width:14px;height:14px; transition:transform .3s ease;}
-  .view-menu-btn:hover svg{transform:translateY(4px);}
+  .view-menu-btn:active{ transform:scale(.94); transition:transform .13s cubic-bezier(.23,1,.32,1); }
+  .view-menu-btn svg{width:14px;height:14px; transition:transform .25s cubic-bezier(.23,1,.32,1);}
+  @media (hover:hover) and (pointer:fine){
+    .view-menu-btn:hover{transform:scale(1.04); box-shadow:0 10px 26px rgba(0,0,0,.32);}
+    .view-menu-btn:hover svg{transform:translateY(4px);}
+  }
 
   .hero-scroll-cue{
     position:absolute; left:50%; bottom:calc(22px + env(safe-area-inset-bottom,0px));
@@ -256,16 +258,14 @@
     color:var(--ink-soft);
     cursor:pointer;
     flex-shrink:0;
-    transition:background .25s ease, color .25s ease, border-color .25s ease, transform .35s cubic-bezier(.34,1.56,.64,1);
+    transition:background .22s ease, color .22s ease, border-color .22s ease, transform .13s cubic-bezier(.23,1,.32,1);
   }
   .tab-btn:active{ transform:scale(.92); }
   .tab-btn.active{
     background:var(--wine);
     border-color:var(--wine);
     color:#fff;
-    animation:tabPop .4s cubic-bezier(.34,1.56,.64,1);
   }
-  @keyframes tabPop{ 0%{ transform:scale(.9); } 60%{ transform:scale(1.06); } 100%{ transform:scale(1); } }
 
   /* ---------- CONTENT ---------- */
   main{max-width:640px; margin:0 auto; padding:8px 20px 140px;}
@@ -291,13 +291,9 @@
     opacity:0;
   }
   .category.in-view .category-icon{
-    animation:iconPop .65s cubic-bezier(.34,1.56,.64,1) forwards, iconGlow 3.4s ease-in-out 1s infinite;
+    animation:iconPop .5s cubic-bezier(.34,1.56,.64,1) forwards;
   }
   @keyframes iconPop{ to{ transform:scale(1) rotate(0deg); opacity:1; } }
-  @keyframes iconGlow{
-    0%,100%{ box-shadow:0 3px 8px rgba(76,20,36,.25); }
-    50%{ box-shadow:0 3px 18px rgba(156,50,82,.55); }
-  }
   .category-icon svg{
     width:22px; height:22px;
     stroke:var(--cream-on-dark);
@@ -335,7 +331,7 @@
     margin:22px 0 8px;
   }
   .item-row{
-    display:flex; justify-content:space-between; align-items:baseline; gap:16px;
+    display:flex; justify-content:space-between; align-items:center; gap:12px;
     padding:13px 4px;
     margin:0 -4px;
     border-bottom:1px solid var(--hairline);
@@ -349,7 +345,7 @@
   }
   @keyframes itemIn{ to{ opacity:1; transform:translateY(0); } }
   .item-row:active{ background:var(--paper-dim); transform:scale(.985); }
-  @media (hover:hover){
+  @media (hover:hover) and (pointer:fine){
     .item-row:hover{ background:var(--paper-dim); transform:translateX(3px); }
     .item-row:hover .item-price{ transform:scale(1.08); }
   }
@@ -358,6 +354,7 @@
   .item-name{
     font-size:18px; font-weight:500; color:var(--ink);
     line-height:1.3;
+    display:flex; flex-wrap:wrap; align-items:center; gap:7px;
   }
   .item-desc{
     font-family:var(--font-ui);
@@ -366,6 +363,9 @@
     color:var(--ink-soft);
     margin-top:2px;
     line-height:1.5;
+  }
+  .item-actions{
+    display:flex; align-items:center; gap:2px; flex-shrink:0;
   }
   .item-price{
     font-family:var(--font-ui);
@@ -376,8 +376,39 @@
     flex-shrink:0;
     transition:transform .25s cubic-bezier(.34,1.56,.64,1);
     display:inline-block;
+    margin-left:6px;
   }
   .item-price.ask{color:var(--ink-soft); font-style:italic; font-family:var(--font-serif); font-size:13px;}
+
+  .icon-btn{
+    width:32px; height:32px;
+    display:flex; align-items:center; justify-content:center;
+    background:none; border:none; cursor:pointer;
+    color:var(--ink-soft);
+    border-radius:50%;
+    flex-shrink:0;
+    transition:background .2s ease, color .2s ease, transform .13s cubic-bezier(.23,1,.32,1);
+  }
+  .icon-btn svg{width:16px; height:16px; fill:none; stroke:currentColor; transition:transform .35s cubic-bezier(.34,1.56,.64,1), fill .2s ease;}
+  .icon-btn:active{ transform:scale(.82); }
+  @media (hover:hover) and (pointer:fine){ .icon-btn:hover{ background:var(--paper-dim); color:var(--wine); } }
+  .fav-btn.active{ color:var(--gold); }
+  .fav-btn.active svg{ fill:var(--gold); transform:scale(1.18); }
+
+  .badge{
+    display:inline-flex; align-items:center; gap:4px;
+    font-family:var(--font-ui);
+    font-size:10px;
+    font-weight:600;
+    letter-spacing:.03em;
+    padding:3px 8px 3px 6px;
+    border-radius:11px;
+    white-space:nowrap;
+    vertical-align:middle;
+  }
+  .badge svg{width:10px; height:10px; fill:currentColor; stroke:none; flex-shrink:0;}
+  .badge-chef{ background:linear-gradient(90deg, var(--wine), var(--wine-bright)); color:#fff; }
+  .badge-popular{ background:rgba(176,138,78,.16); color:#8a6a30; border:1px solid rgba(176,138,78,.35); }
 
   .daily-card{
     background:var(--paper-dim);
@@ -410,6 +441,8 @@
   footer .foot-mark{font-family:var(--font-script); font-size:34px; color:#fff; margin-bottom:4px;}
   footer .foot-sub{font-family:var(--font-ui); font-size:11px; letter-spacing:.3em; text-transform:uppercase; color:var(--gold); margin-bottom:22px;}
   footer .foot-line{font-family:var(--font-ui); font-size:13px; line-height:2; color:#C9BEB4;}
+  footer .foot-line a{ color:var(--cream-on-dark); text-decoration:underline; text-decoration-color:rgba(239,231,218,.35); text-underline-offset:3px; }
+  footer .foot-line a:active{ color:var(--gold); }
 
   /* ---------- INSTALL PROMPT ---------- */
   .install-banner{
@@ -430,7 +463,6 @@
   .install-icon{
     width:38px; height:38px; border-radius:9px; background:var(--wine);
     display:flex; align-items:center; justify-content:center; flex-shrink:0;
-    animation:iconGlow 3.4s ease-in-out 1s infinite;
   }
   .install-icon svg{width:19px; height:19px; color:#fff;}
   .install-text{flex:1; font-family:var(--font-ui);}
@@ -444,7 +476,7 @@
     transition:transform .3s cubic-bezier(.34,1.56,.64,1);
   }
   .install-go:active{ transform:scale(.9); }
-  @media (hover:hover){ .install-go:hover{ transform:scale(1.06); } }
+  @media (hover:hover) and (pointer:fine){ .install-go:hover{ transform:scale(1.06); } }
   .install-close{
     background:none; border:none; color:#8C8078; cursor:pointer; padding:6px;
     display:flex;
@@ -480,7 +512,7 @@
 
   /* ---------- BACK TO TOP ---------- */
   .back-to-top{
-    position:fixed; right:16px; bottom:calc(16px + env(safe-area-inset-bottom,0px));
+    position:fixed; right:16px; bottom:calc(72px + env(safe-area-inset-bottom,0px));
     z-index:70;
     width:44px; height:44px;
     border-radius:50%;
@@ -497,11 +529,167 @@
   }
   .back-to-top.show{ opacity:1; transform:translateY(0) scale(1); pointer-events:auto; }
   .back-to-top:active{ transform:scale(.88); }
-  @media (hover:hover){
+  @media (hover:hover) and (pointer:fine){
     .back-to-top:hover{ transform:translateY(-3px) scale(1.06); box-shadow:0 12px 26px rgba(27,21,18,.22); }
     .back-to-top:hover svg{ transform:translateY(-2px); }
   }
   .back-to-top svg{width:18px; height:18px; transition:transform .3s cubic-bezier(.34,1.56,.64,1);}
+
+  /* ---------- CALL BUTTON ---------- */
+  .call-fab{
+    position:fixed; left:16px; bottom:calc(16px + env(safe-area-inset-bottom,0px));
+    z-index:70;
+    width:52px; height:52px;
+    border-radius:50%;
+    background:var(--wine);
+    color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 10px 24px rgba(76,20,36,.4);
+    text-decoration:none;
+    transition:transform .35s cubic-bezier(.34,1.56,.64,1), box-shadow .25s ease;
+    animation:callPulse 3.6s ease-in-out 2s infinite;
+  }
+  .call-fab svg{width:22px; height:22px;}
+  .call-fab:active{ transform:scale(.88); }
+  @media (hover:hover) and (pointer:fine){ .call-fab:hover{ transform:translateY(-3px) scale(1.06); box-shadow:0 14px 30px rgba(76,20,36,.5); } }
+  @keyframes callPulse{
+    0%,100%{ box-shadow:0 10px 24px rgba(76,20,36,.4), 0 0 0 0 rgba(156,50,82,.4); }
+    50%{ box-shadow:0 10px 24px rgba(76,20,36,.4), 0 0 0 10px rgba(156,50,82,0); }
+  }
+
+  /* ---------- FAVORITES BUTTON ---------- */
+  .fav-fab{
+    position:fixed; right:16px; bottom:calc(16px + env(safe-area-inset-bottom,0px));
+    z-index:70;
+    width:52px; height:52px;
+    border-radius:50%;
+    border:1px solid var(--hairline);
+    background:rgba(250,246,239,.96);
+    backdrop-filter:blur(8px);
+    color:var(--wine-deep);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 10px 24px rgba(27,21,18,.18);
+    cursor:pointer;
+    transition:transform .35s cubic-bezier(.34,1.56,.64,1), box-shadow .25s ease;
+  }
+  .fav-fab svg{width:21px; height:21px; fill:none; stroke:currentColor; transition:fill .25s ease;}
+  .fav-fab.has-favs svg{ fill:var(--gold); stroke:var(--wine-deep); }
+  .fav-fab:active{ transform:scale(.88); }
+  @media (hover:hover) and (pointer:fine){ .fav-fab:hover{ transform:translateY(-3px) scale(1.06); box-shadow:0 14px 30px rgba(27,21,18,.25); } }
+  .fav-fab-count{
+    position:absolute; top:-4px; right:-4px;
+    min-width:19px; height:19px; padding:0 4px;
+    border-radius:10px;
+    background:var(--wine);
+    color:#fff;
+    font-family:var(--font-ui);
+    font-size:10.5px; font-weight:600;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 2px 6px rgba(0,0,0,.25);
+    animation:favCountPop .4s cubic-bezier(.34,1.56,.64,1);
+  }
+  @keyframes favCountPop{ 0%{ transform:scale(.5); opacity:0; } 60%{ transform:scale(1.2); } 100%{ transform:scale(1); opacity:1; } }
+
+  /* ---------- BOTTOM SHEETS (favorites + share) ---------- */
+  .sheet-backdrop{
+    position:fixed; inset:0; z-index:90;
+    background:rgba(18,14,13,.5);
+    opacity:0; pointer-events:none;
+    transition:opacity .3s ease;
+  }
+  .sheet-backdrop.show{ opacity:1; pointer-events:auto; }
+  .sheet{
+    position:fixed; left:0; right:0; bottom:0; z-index:91;
+    background:var(--paper);
+    border-radius:20px 20px 0 0;
+    padding:10px 20px calc(20px + env(safe-area-inset-bottom,0px));
+    max-height:75vh;
+    display:flex; flex-direction:column;
+    box-shadow:0 -12px 40px rgba(0,0,0,.25);
+    transform:translateY(100%);
+    transition:transform .25s cubic-bezier(.23,1,.32,1);
+  }
+  .sheet.show{
+    transform:translateY(0);
+    transition:transform .4s cubic-bezier(.32,.72,0,1);
+  }
+  .sheet-small{ max-height:none; }
+  .sheet-handle{
+    width:36px; height:4px; border-radius:3px;
+    background:var(--hairline);
+    margin:4px auto 12px;
+    flex-shrink:0;
+  }
+  .sheet-header{
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom:10px;
+    flex-shrink:0;
+  }
+  .sheet-header h3{
+    font-family:var(--font-serif); font-weight:600; font-size:21px; color:var(--wine-deep); margin:0;
+  }
+  .sheet-close{
+    width:32px; height:32px; border-radius:50%;
+    background:var(--paper-dim); border:none; color:var(--ink-soft);
+    display:flex; align-items:center; justify-content:center; cursor:pointer;
+    transition:transform .25s ease;
+  }
+  .sheet-close:active{ transform:scale(.85) rotate(90deg); }
+  .sheet-close svg{width:15px; height:15px;}
+
+  .fav-list{ overflow-y:auto; flex:1; }
+  .fav-item{
+    display:flex; justify-content:space-between; align-items:center; gap:12px;
+    padding:11px 0;
+    border-bottom:1px solid var(--hairline);
+  }
+  .fav-item:last-child{ border-bottom:none; }
+  .fav-item-name{ font-size:16px; font-weight:500; color:var(--ink); }
+  .fav-item-right{ display:flex; align-items:center; gap:6px; flex-shrink:0; }
+  .fav-item-price{ font-family:var(--font-ui); font-size:13.5px; color:var(--wine); font-weight:500; white-space:nowrap; }
+  .fav-remove{
+    width:28px; height:28px; border-radius:50%; border:none; background:none;
+    color:var(--ink-soft); display:flex; align-items:center; justify-content:center; cursor:pointer;
+  }
+  .fav-remove svg{width:14px; height:14px;}
+  @media (hover:hover) and (pointer:fine){ .fav-remove:hover{ background:var(--paper-dim); color:var(--wine); } }
+
+  .fav-empty{
+    display:none;
+    flex-direction:column; align-items:center; text-align:center;
+    padding:30px 10px 10px; color:var(--ink-soft);
+    font-family:var(--font-ui); font-size:13.5px;
+  }
+  .fav-empty svg{width:34px; height:34px; color:var(--hairline); fill:none; stroke:currentColor; margin-bottom:10px;}
+  .fav-empty.show{ display:flex; }
+
+  .fav-actions{ display:flex; gap:10px; margin-top:14px; flex-shrink:0; }
+  .fav-share-all, .fav-clear{
+    font-family:var(--font-ui); font-size:13px; font-weight:500;
+    border-radius:22px; padding:12px 18px; cursor:pointer; border:none;
+    transition:transform .3s cubic-bezier(.34,1.56,.64,1);
+  }
+  .fav-share-all{ flex:1; background:var(--wine); color:#fff; }
+  .fav-clear{ background:var(--paper-dim); color:var(--ink-soft); }
+  .fav-share-all:active, .fav-clear:active{ transform:scale(.95); }
+
+  .share-options{ display:flex; gap:14px; padding-top:4px; }
+  .share-option{
+    flex:1; display:flex; flex-direction:column; align-items:center; gap:8px;
+    font-family:var(--font-ui); font-size:12.5px; color:var(--ink);
+    text-decoration:none; background:none; border:none; cursor:pointer;
+    padding:6px 0;
+  }
+  .share-option-icon{
+    width:48px; height:48px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    transition:transform .3s cubic-bezier(.34,1.56,.64,1);
+  }
+  .share-option:active .share-option-icon{ transform:scale(.88); }
+  .share-option-icon svg{width:22px; height:22px;}
+  .share-option-icon.wa{ background:#25D366; color:#fff; }
+  .share-option-icon.sms{ background:var(--wine); color:#fff; }
+  .share-option-icon.copy{ background:var(--paper-dim); color:var(--wine); border:1px solid var(--hairline); }
 
   /* ---------- SWIPE TRANSITION ---------- */
   #menu-root{ transition:transform .4s cubic-bezier(.34,1.56,.64,1), opacity .22s ease; }
@@ -569,10 +757,13 @@
     .category-icon{animation:none; opacity:1; transform:none;}
     .category-rule{animation:none; transform:scaleX(1);}
     .item-row{animation:none; opacity:1; transform:none;}
-    .tab-btn.active{animation:none;}
     .swipe-hint.show svg{animation:none;}
     #menu-root{transition:none;}
     .back-to-top, .swipe-hint{transition:none;}
+    .call-fab{animation:none;}
+    .fav-btn.active svg{transition:none;}
+    .fav-fab-count{animation:none;}
+    .sheet, .sheet-backdrop{transition:none;}
   }
 </style>
 </head>
@@ -620,14 +811,70 @@
   <div class="no-results" id="no-results" style="display:none;">Nothing on the menu matches that search.</div>
 </main>
 
+<a class="call-fab" id="call-fab" href="tel:+23275200020" aria-label="Call Pulse Restaurant & Bar">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.4 2.1L8.1 10a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2z"/></svg>
+</a>
+
+<button class="fav-fab" id="fav-fab" aria-label="View favorites">
+  <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.3l2.6 5.4 5.9.8-4.3 4.2 1 5.9L12 16.7 6.8 19.6l1-5.9-4.3-4.2 5.9-.8z"/></svg>
+  <span class="fav-fab-count" id="fav-fab-count" style="display:none;">0</span>
+</button>
+
 <button class="back-to-top" id="back-to-top" aria-label="Back to top">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
 </button>
 
+<!-- FAVORITES PANEL -->
+<div class="sheet-backdrop" id="fav-backdrop"></div>
+<div class="sheet" id="fav-sheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-header">
+    <h3>Your Picks</h3>
+    <button class="sheet-close" id="fav-close" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="fav-list" id="fav-list"></div>
+  <div class="fav-empty" id="fav-empty">
+    <svg viewBox="0 0 24 24" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.3l2.6 5.4 5.9.8-4.3 4.2 1 5.9L12 16.7 6.8 19.6l1-5.9-4.3-4.2 5.9-.8z"/></svg>
+    <p>Tap the star on any dish to save it here.</p>
+  </div>
+  <div class="fav-actions" id="fav-actions">
+    <button class="fav-share-all" id="fav-share-all">Share my picks</button>
+    <button class="fav-clear" id="fav-clear">Clear all</button>
+  </div>
+</div>
+
+<!-- SHARE SHEET (fallback for browsers without native share) -->
+<div class="sheet-backdrop" id="share-backdrop"></div>
+<div class="sheet sheet-small" id="share-sheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-header">
+    <h3 id="share-sheet-title">Share</h3>
+    <button class="sheet-close" id="share-close" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="share-options">
+    <a class="share-option" id="share-whatsapp" target="_blank" rel="noopener">
+      <span class="share-option-icon wa"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1-.4-.1-1-.3-1.7-.6-3-1.3-5-4.3-5.1-4.5-.2-.2-1.2-1.6-1.2-3.1 0-1.5.8-2.2 1.1-2.5.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5.2.5.7 1.8.8 1.9.1.1.1.3 0 .5-.1.2-.1.3-.3.5l-.4.5c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1.2-.2.7-.8.9-1.1.2-.3.4-.2.6-.1l1.7.8c.2.1.3.2.4.3.1.2.1.9-.1 1.6z"/></svg></span>
+      WhatsApp
+    </a>
+    <a class="share-option" id="share-sms">
+      <span class="share-option-icon sms"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
+      Message
+    </a>
+    <button class="share-option" id="share-copy" type="button">
+      <span class="share-option-icon copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></span>
+      Copy link
+    </button>
+  </div>
+</div>
+
 <footer>
   <div class="foot-mark">Pulse</div>
   <div class="foot-sub">Restaurant &amp; Bar</div>
-  <div class="foot-line">Cathedral House, 3 Gloucester Street, Freetown.<br>+232 75 200 020 · +232 31 200 020</div>
+  <div class="foot-line">Cathedral House, 3 Gloucester Street, Freetown.<br><a href="tel:+23275200020">+232 75 200 020</a> · <a href="tel:+23231200020">+232 31 200 020</a></div>
 </footer>
 
 <!-- INSTALL PROMPT -->
@@ -643,6 +890,7 @@
     <button class="install-go" id="install-go" style="display:none;">Add</button>
     <button class="install-close" id="install-close" aria-label="Dismiss">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+
     </button>
   </div>
 </div>
@@ -650,7 +898,7 @@
 <script>
 /* ============ MENU DATA ============ */
 const CURRENCY = "Le ";
-const item = (name, price, desc) => ({name, price, desc});
+const item = (name, price, desc, badge) => ({name, price, desc, badge});
 
 const TABS = [
   {
@@ -721,7 +969,7 @@ const TABS = [
       {
         title:"Chef's Special",
         items:[
-          item("Chef Magic Platter", null, "Plantain, shawarma, rice akara, jumbo shrimps or normal shrimps, fried rice or jollof rice, chicken leg or chicken wings, rose apple")
+          item("Chef Magic Platter", null, "Plantain, shawarma, rice akara, jumbo shrimps or normal shrimps, fried rice or jollof rice, chicken leg or chicken wings, rose apple", "chef")
         ]
       }
     ]
@@ -771,7 +1019,7 @@ const TABS = [
         title:"Sandwiches & Burgers",
         note:"Served with fries · choice of sliced bread, baguette or bun",
         items:[
-          item("Jackpot",235,"Smoked chicken, bacon, balsamic mayo, cheddar & mozzarella cheese with fresh tomato"),
+          item("Jackpot",235,"Smoked chicken, bacon, balsamic mayo, cheddar & mozzarella cheese with fresh tomato","popular"),
           item("Spicy Chicken",210,"Tomato, lettuce and bleu cheese"),
           item("Chicken",210),
           item("Philadelphia Steak",235),
@@ -787,11 +1035,11 @@ const TABS = [
         title:"From the Grill (250g)",
         note:"Choice of tossed salad, French fries, fried rice, jollof rice, roast potato, sweet potato or plantain",
         items:[
-          item("Rib-Eye Steak",410), item("Rack of Lamb",430), item("Lamb Shank",430),
+          item("Rib-Eye Steak",410,null,"popular"), item("Rack of Lamb",430), item("Lamb Shank",430),
           item("Calamari Steaks",330), item("Chicken Supreme",330), item("Peri-Peri Chicken",390),
           item("Grilled Half Local Chicken",390), item("Grilled Catch of the Day",410),
-          item("\u201CLuxury\u201D Assiette of Seafood",470), item("Grilled Shrimps",460),
-          item("Grilled Lobster",530), item("Grilled Chicken Breast",390),
+          item("\u201CLuxury\u201D Assiette of Seafood",470,null,"chef"), item("Grilled Shrimps",460),
+          item("Grilled Lobster",530,null,"chef"), item("Grilled Chicken Breast",390),
           item("Philadelphia Cheese Steak",435), item("Grilled Jumbo Shrimps",530)
         ]
       },
@@ -808,7 +1056,7 @@ const TABS = [
       {
         title:"Specialty",
         items:[
-          item("Seafood Curved Curry",285,"Assorted seafood in spicy curry sauce and coconut milk"),
+          item("Seafood Curved Curry",285,"Assorted seafood in spicy curry sauce and coconut milk","chef"),
           item("Kebab — 3",390,"Choice of goat meat, beef or chicken"),
           item("Curry Korma",330,"Salone style — goat or chicken"),
           item("Sauté Liver",390,"Served with vegetable and choice of side"),
@@ -952,7 +1200,7 @@ const TABS = [
       {
         title:"Cocktails",
         items:[
-          item("Piña Colada",100,"Malibu, coconut cream, pineapple juice"),
+          item("Piña Colada",100,"Malibu, coconut cream, pineapple juice","popular"),
           item("Mojito",100,"Bacardi white, mint leaves, brown sugar, sprite, lemon wedges"),
           item("Absolut Ginger Smash",100,"Absolut Blue, local ginger beer, lemon"),
           item("Negroni",100,"Campari, martini rosso, soda, lemon peel"),
@@ -965,7 +1213,7 @@ const TABS = [
       {
         title:"Signature Cocktails",
         items:[
-          item("Pulse Paradise",150,"Grenadine, Malibu, orange juice, blue curaçao"),
+          item("Pulse Paradise",150,"Grenadine, Malibu, orange juice, blue curaçao","popular"),
           item("Pulse Summertime",150,"Absolut Citron, sweet sour, sprite, soda, lemon"),
           item("Apple Judy",150,"Grand Marnier, vodka, apple juice")
         ]
@@ -1059,17 +1307,44 @@ function fmtPrice(p){
   return CURRENCY + p;
 }
 
+let __itemCounter = 0;
+const ITEM_REGISTRY = {};
+
+const BADGE_LABELS = {
+  chef: { label: "Chef's Pick", icon: `<path d="M7 10.2a2.9 2.9 0 0 1 .8-5.7A3.3 3.3 0 0 1 12 3a3.3 3.3 0 0 1 4.2 1.4 2.9 2.9 0 0 1 .8 5.8v3.3H7z"/><path d="M7.3 16.5h9.4v3.2a1 1 0 0 1-1 1h-7.4a1 1 0 0 1-1-1z"/>` },
+  popular: { label: "Popular", icon: `<path d="M12 2.7c-3.6 3.6-5.6 6.3-5.6 9.4a5.6 5.6 0 0 0 11.2 0c0-1.6-.7-3-1.7-4.2.4 1.7-.8 2.6-1.9 2.6a1.9 1.9 0 0 1-1.9-1.9c0-1.7.9-2.8-.1-5.9z"/>` }
+};
+
+function renderBadge(key){
+  const b = BADGE_LABELS[key];
+  if(!b) return '';
+  return `<span class="badge badge-${key}"><svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${b.icon}</svg>${b.label}</span>`;
+}
+
+const STAR_ICON = `<path d="M12 3.3l2.6 5.4 5.9.8-4.3 4.2 1 5.9L12 16.7 6.8 19.6l1-5.9-4.3-4.2 5.9-.8z"/>`;
+const SHARE_ICON = `<circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><line x1="8.3" y1="10.7" x2="15.7" y2="6.3"/><line x1="8.3" y1="13.3" x2="15.7" y2="17.7"/>`;
+
 function renderItem(it, idx){
+  const id = 'it' + (__itemCounter++);
+  ITEM_REGISTRY[id] = { name: it.name, price: it.price, desc: it.desc };
   const priceHtml = (it.price === null || it.price === undefined)
     ? ''
     : `<span class="item-price">${fmtPrice(it.price)}</span>`;
   return `
-    <div class="item-row" style="--i:${idx||0}" data-search="${(it.name + ' ' + (it.desc||'')).toLowerCase()}">
+    <div class="item-row" style="--i:${idx||0}" data-search="${(it.name + ' ' + (it.desc||'')).toLowerCase()}" data-id="${id}">
       <div class="item-main">
-        <div class="item-name">${it.name}</div>
+        <div class="item-name">${it.name}${renderBadge(it.badge)}</div>
         ${it.desc ? `<div class="item-desc">${it.desc}</div>` : ''}
       </div>
-      ${priceHtml}
+      <div class="item-actions">
+        <button class="icon-btn fav-btn" data-id="${id}" aria-label="Save ${it.name} to favorites" type="button">
+          <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${STAR_ICON}</svg>
+        </button>
+        <button class="icon-btn share-btn" data-id="${id}" aria-label="Share ${it.name}" type="button">
+          <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${SHARE_ICON}</svg>
+        </button>
+        ${priceHtml}
+      </div>
     </div>`;
 }
 
@@ -1127,35 +1402,49 @@ TABS.forEach((tab,i)=>{
   rootEl.appendChild(section);
 });
 
-/* active tab highlight on scroll */
+/* active tab highlight on scroll (with fallback if IntersectionObserver is unavailable) */
 const sections = TABS.map(t=>document.getElementById('sec-'+t.id));
 const tabBtns = [...tabsEl.children];
-const io = new IntersectionObserver((entries)=>{
-  entries.forEach(en=>{
-    if(en.isIntersecting){
-      const idx = sections.indexOf(en.target);
-      tabBtns.forEach(b=>b.classList.remove('active'));
-      if(tabBtns[idx]){
-        tabBtns[idx].classList.add('active');
-        tabBtns[idx].scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
-      }
-    }
-  });
-}, {rootMargin:'-140px 0px -70% 0px'});
-sections.forEach(s=>io.observe(s));
+try{
+  if('IntersectionObserver' in window){
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(en=>{
+        if(en.isIntersecting){
+          const idx = sections.indexOf(en.target);
+          tabBtns.forEach(b=>b.classList.remove('active'));
+          if(tabBtns[idx]){
+            tabBtns[idx].classList.add('active');
+            tabBtns[idx].scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
+          }
+        }
+      });
+    }, {rootMargin:'-140px 0px -70% 0px'});
+    sections.forEach(s=>{ if(s) io.observe(s); });
+  }
+}catch(err){ console.error('Pulse: tab-highlight observer failed', err); }
 
-/* scroll-reveal each category once, the first time it enters view */
-const revealObserver = new IntersectionObserver((entries)=>{
-  entries.forEach(en=>{
-    if(en.isIntersecting){
-      en.target.classList.add('in-view');
-      revealObserver.unobserve(en.target);
-    }
-  });
-}, {threshold:0.06, rootMargin:'0px 0px -50px 0px'});
-sections.forEach(s=>revealObserver.observe(s));
+/* scroll-reveal each category once, the first time it enters view (fallback: reveal immediately) */
+try{
+  if('IntersectionObserver' in window){
+    const revealObserver = new IntersectionObserver((entries)=>{
+      entries.forEach(en=>{
+        if(en.isIntersecting){
+          en.target.classList.add('in-view');
+          revealObserver.unobserve(en.target);
+        }
+      });
+    }, {threshold:0.06, rootMargin:'0px 0px -50px 0px'});
+    sections.forEach(s=>{ if(s) revealObserver.observe(s); });
+  } else {
+    sections.forEach(s=>{ if(s) s.classList.add('in-view'); });
+  }
+}catch(err){
+  console.error('Pulse: reveal observer failed', err);
+  sections.forEach(s=>{ if(s) s.classList.add('in-view'); });
+}
 
 /* ============ Scroll effects: progress bar, hero parallax, condensing topbar, back-to-top ============ */
+try{
 (function(){
   const topbarEl = document.getElementById('topbar');
   const progressEl = document.getElementById('scroll-progress');
@@ -1195,8 +1484,10 @@ sections.forEach(s=>revealObserver.observe(s));
     window.scrollTo({top:0, behavior: reduceMotion ? 'auto' : 'smooth'});
   });
 })();
+}catch(err){ console.error('Pulse: scroll effects failed', err); }
 
 /* ============ Swipe between category tabs ============ */
+try{
 (function(){
   const menuRoot = document.getElementById('menu-root');
   const swipeHint = document.getElementById('swipe-hint');
@@ -1279,31 +1570,214 @@ sections.forEach(s=>revealObserver.observe(s));
     }, 3200);
   };
 })();
+}catch(err){ console.error('Pulse: swipe gestures failed', err); }
 
-/* search */
-const searchInput = document.getElementById('search');
-searchInput.addEventListener('input', ()=>{
-  const q = searchInput.value.trim().toLowerCase();
-  if(q){
-    document.querySelectorAll('.category').forEach(c=>c.classList.add('in-view'));
-  }
-  const rows = document.querySelectorAll('.item-row');
-  let anyVisible = false;
-  rows.forEach(r=>{
-    const match = !q || r.dataset.search.includes(q);
-    r.style.display = match ? '' : 'none';
-    if(match) anyVisible = true;
+/* search — isolated so it can never be broken by any other feature on the page */
+try{
+  const searchInput = document.getElementById('search');
+  searchInput.addEventListener('input', ()=>{
+    const q = searchInput.value.trim().toLowerCase();
+    if(q){
+      document.querySelectorAll('.category').forEach(c=>c.classList.add('in-view'));
+    }
+    const rows = document.querySelectorAll('.item-row');
+    let anyVisible = false;
+    rows.forEach(r=>{
+      const match = !q || r.dataset.search.includes(q);
+      r.style.display = match ? '' : 'none';
+      if(match) anyVisible = true;
+    });
+    noResultsEl.style.display = (q && !anyVisible) ? 'block' : 'none';
   });
-  noResultsEl.style.display = (q && !anyVisible) ? 'block' : 'none';
-});
+}catch(err){ console.error('Pulse: search failed to initialize', err); }
+
+/* ============ Favorites & Sharing ============ */
+try{
+(function(){
+  const FAV_KEY = 'pulse-favorites';
+  const favFab = document.getElementById('fav-fab');
+  const favCount = document.getElementById('fav-fab-count');
+  const favSheet = document.getElementById('fav-sheet');
+  const favBackdrop = document.getElementById('fav-backdrop');
+  const favList = document.getElementById('fav-list');
+  const favEmpty = document.getElementById('fav-empty');
+  const favActions = document.getElementById('fav-actions');
+  const favClose = document.getElementById('fav-close');
+  const favClearBtn = document.getElementById('fav-clear');
+  const favShareAllBtn = document.getElementById('fav-share-all');
+
+  const shareSheet = document.getElementById('share-sheet');
+  const shareBackdrop = document.getElementById('share-backdrop');
+  const shareClose = document.getElementById('share-close');
+  const shareTitleEl = document.getElementById('share-sheet-title');
+  const shareWa = document.getElementById('share-whatsapp');
+  const shareSms = document.getElementById('share-sms');
+  const shareCopy = document.getElementById('share-copy');
+
+  let favorites = new Set();
+  try{
+    const raw = localStorage.getItem(FAV_KEY);
+    if(raw){ JSON.parse(raw).forEach(id=>favorites.add(id)); }
+  }catch(err){}
+
+  function saveFavorites(){
+    try{ localStorage.setItem(FAV_KEY, JSON.stringify([...favorites])); }catch(err){}
+  }
+
+  function openSheet(sheet, backdrop){
+    backdrop.classList.add('show');
+    sheet.classList.add('show');
+  }
+  function closeSheet(sheet, backdrop){
+    backdrop.classList.remove('show');
+    sheet.classList.remove('show');
+  }
+
+  function updateFavFab(){
+    const n = favorites.size;
+    favFab.classList.toggle('has-favs', n > 0);
+    if(n > 0){
+      favCount.style.display = 'flex';
+      favCount.textContent = n > 99 ? '99+' : String(n);
+    } else {
+      favCount.style.display = 'none';
+    }
+  }
+
+  function renderFavList(){
+    const ids = [...favorites];
+    if(ids.length === 0){
+      favList.innerHTML = '';
+      favEmpty.classList.add('show');
+      favActions.style.display = 'none';
+      return;
+    }
+    favEmpty.classList.remove('show');
+    favActions.style.display = 'flex';
+    favList.innerHTML = ids.map(id=>{
+      const it = ITEM_REGISTRY[id];
+      if(!it) return '';
+      const priceHtml = (it.price !== null && it.price !== undefined) ? `<span class="fav-item-price">${fmtPrice(it.price)}</span>` : '';
+      return `
+        <div class="fav-item" data-id="${id}">
+          <span class="fav-item-name">${it.name}</span>
+          <span class="fav-item-right">
+            ${priceHtml}
+            <button class="fav-remove" data-id="${id}" aria-label="Remove ${it.name}" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </button>
+          </span>
+        </div>`;
+    }).join('');
+  }
+
+  function toggleFavorite(id){
+    if(favorites.has(id)){ favorites.delete(id); } else { favorites.add(id); }
+    saveFavorites();
+    document.querySelectorAll(`.fav-btn[data-id="${id}"]`).forEach(b=>b.classList.toggle('active', favorites.has(id)));
+    updateFavFab();
+    if(favSheet.classList.contains('show')) renderFavList();
+  }
+
+  // Initialize star states for any favorites saved from a previous visit
+  favorites.forEach(id=>{
+    document.querySelectorAll(`.fav-btn[data-id="${id}"]`).forEach(b=>b.classList.add('active'));
+  });
+  updateFavFab();
+
+  // Delegated clicks for star + share buttons across the whole menu
+  const menuRootEl = document.getElementById('menu-root');
+  menuRootEl.addEventListener('click', (e)=>{
+    const favBtn = e.target.closest('.fav-btn');
+    if(favBtn){ toggleFavorite(favBtn.dataset.id); return; }
+    const shareBtn = e.target.closest('.share-btn');
+    if(shareBtn){ shareDish(shareBtn.dataset.id); return; }
+  });
+
+  favFab.addEventListener('click', ()=>{ renderFavList(); openSheet(favSheet, favBackdrop); });
+  favClose.addEventListener('click', ()=>closeSheet(favSheet, favBackdrop));
+  favBackdrop.addEventListener('click', ()=>closeSheet(favSheet, favBackdrop));
+
+  favList.addEventListener('click', (e)=>{
+    const rm = e.target.closest('.fav-remove');
+    if(!rm) return;
+    toggleFavorite(rm.dataset.id);
+  });
+
+  favClearBtn.addEventListener('click', ()=>{
+    favorites.forEach(id=>{
+      document.querySelectorAll(`.fav-btn[data-id="${id}"]`).forEach(b=>b.classList.remove('active'));
+    });
+    favorites.clear();
+    saveFavorites();
+    updateFavFab();
+    renderFavList();
+  });
+
+  favShareAllBtn.addEventListener('click', ()=>shareFavorites());
+
+  /* ---- Sharing ---- */
+  function doShare(body, title){
+    if(navigator.share){
+      navigator.share({ title: title, text: body, url: window.location.href }).catch(()=>{});
+      return;
+    }
+    const fullText = body + '\n' + window.location.href;
+    shareTitleEl.textContent = title || 'Share';
+    shareWa.href = 'https://wa.me/?text=' + encodeURIComponent(fullText);
+    shareSms.href = 'sms:?body=' + encodeURIComponent(fullText);
+    shareCopy.onclick = ()=>{
+      const textNode = [...shareCopy.childNodes].find(n=>n.nodeType===3 && n.textContent.trim());
+      const original = textNode ? textNode.textContent : null;
+      const finish = ()=>{
+        if(textNode) textNode.textContent = 'Copied!';
+        setTimeout(()=>{
+          if(textNode && original) textNode.textContent = original;
+          closeSheet(shareSheet, shareBackdrop);
+        }, 900);
+      };
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(fullText).then(finish).catch(()=>closeSheet(shareSheet, shareBackdrop));
+      } else {
+        closeSheet(shareSheet, shareBackdrop);
+      }
+    };
+    openSheet(shareSheet, shareBackdrop);
+  }
+
+  window.shareDish = function(id){
+    const it = ITEM_REGISTRY[id];
+    if(!it) return;
+    const priceStr = (it.price !== null && it.price !== undefined) ? ` — ${fmtPrice(it.price)}` : '';
+    doShare(`${it.name}${priceStr} at Pulse Restaurant & Bar`, it.name);
+  };
+
+  function shareFavorites(){
+    if(favorites.size === 0) return;
+    let total = 0, hasAllPrices = true;
+    const lines = [...favorites].map(id=>{
+      const it = ITEM_REGISTRY[id];
+      if(!it) return '';
+      if(it.price !== null && it.price !== undefined){ total += it.price; } else { hasAllPrices = false; }
+      const priceStr = (it.price !== null && it.price !== undefined) ? ` — ${fmtPrice(it.price)}` : '';
+      return `• ${it.name}${priceStr}`;
+    });
+    const totalLine = hasAllPrices ? `\nTotal: ${fmtPrice(total)}` : '';
+    doShare(`My picks at Pulse Restaurant & Bar:\n${lines.join('\n')}${totalLine}`, 'My Picks at Pulse');
+  }
+
+  shareClose.addEventListener('click', ()=>closeSheet(shareSheet, shareBackdrop));
+  shareBackdrop.addEventListener('click', ()=>closeSheet(shareSheet, shareBackdrop));
+})();
+}catch(err){ console.error('Pulse: favorites/sharing failed', err); }
 
 /* ============ PWA: manifest + icons ============ */
-const ICON_SVG = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='96' fill='%23120E0D'/><path d='M60 260 L170 260 L200 190 L240 340 L280 150 L310 260 L452 260' fill='none' stroke='%239C3252' stroke-width='26' stroke-linecap='round' stroke-linejoin='round'/></svg>`;
-const iconDataUri = 'data:image/svg+xml,' + ICON_SVG.replace(/'/g,'"').replace(/#/g,'%23').replace(/"/g,"'").replace(/</g,'%3C').replace(/>/g,'%3E');
-document.getElementById('apple-touch-icon').href = iconDataUri;
-document.getElementById('favicon-icon').href = iconDataUri;
-
 try{
+  const ICON_SVG = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='96' fill='%23120E0D'/><path d='M60 260 L170 260 L200 190 L240 340 L280 150 L310 260 L452 260' fill='none' stroke='%239C3252' stroke-width='26' stroke-linecap='round' stroke-linejoin='round'/></svg>`;
+  const iconDataUri = 'data:image/svg+xml,' + ICON_SVG.replace(/'/g,'"').replace(/#/g,'%23').replace(/"/g,"'").replace(/</g,'%3C').replace(/>/g,'%3E');
+  document.getElementById('apple-touch-icon').href = iconDataUri;
+  document.getElementById('favicon-icon').href = iconDataUri;
+
   const manifest = {
     name: "Pulse Restaurant & Bar",
     short_name: "Pulse",
@@ -1316,9 +1790,10 @@ try{
   };
   document.getElementById('manifest-link').href =
     'data:application/manifest+json,' + encodeURIComponent(JSON.stringify(manifest));
-}catch(e){ /* manifest not critical */ }
+}catch(err){ console.error('Pulse: icon/manifest setup failed', err); }
 
 /* ============ Add-to-home-screen prompt ============ */
+try{
 (function(){
   const banner = document.getElementById('install-banner');
   const goBtn = document.getElementById('install-go');
@@ -1333,29 +1808,46 @@ try{
   const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
 
   if(isStandalone || dismissed){
-    // no banner
+    // already installed or previously dismissed — no banner
   } else if(isIOS){
     titleEl.textContent = "Add Pulse to your Home Screen";
     subEl.textContent = "Tap the Share icon, then \u201CAdd to Home Screen.\u201D";
     goBtn.style.display = 'none';
     setTimeout(()=>banner.classList.add('show'), 1400);
   } else {
+    let promptFired = false;
     window.addEventListener('beforeinstallprompt', (e)=>{
       e.preventDefault();
       window.__deferredPrompt = e;
+      promptFired = true;
+      titleEl.textContent = "Add Pulse to your Home Screen";
+      subEl.textContent = "Open the menu instantly next time, no browser needed.";
       goBtn.style.display = 'inline-flex';
       banner.classList.add('show');
     });
+    // Fallback: many browsers (Samsung Internet, Firefox, in-app browsers) never
+    // fire beforeinstallprompt at all — show manual instructions instead of nothing.
+    setTimeout(()=>{
+      if(!promptFired && !dismissed){
+        titleEl.textContent = "Add Pulse to your Home Screen";
+        subEl.textContent = "Open your browser menu and choose \u201CAdd to Home screen\u201D or \u201CInstall app.\u201D";
+        goBtn.style.display = 'none';
+        banner.classList.add('show');
+      }
+    }, 2500);
   }
 
   goBtn.addEventListener('click', async ()=>{
     const dp = window.__deferredPrompt;
     if(dp){
-      dp.prompt();
-      await dp.userChoice;
+      try{
+        dp.prompt();
+        await dp.userChoice;
+      }catch(e){}
       window.__deferredPrompt = null;
     }
     banner.classList.remove('show');
+    try{ localStorage.setItem('pulse-install-dismissed','1'); }catch(e){}
   });
 
   closeBtn.addEventListener('click', ()=>{
@@ -1363,6 +1855,7 @@ try{
     try{ localStorage.setItem('pulse-install-dismissed','1'); }catch(e){}
   });
 })();
+}catch(err){ console.error('Pulse: install prompt failed', err); }
 </script>
 </body>
 </html>
