@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+<title>Pulse Restaurant &amp; Bar — Menu</title>
+<meta name="theme-color" content="#120E0D">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Pulse">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Playball&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<link id="apple-touch-icon" rel="apple-touch-icon">
+<link id="favicon-icon" rel="icon" type="image/svg+xml">
+<link id="manifest-link" rel="manifest">
+<style>
+  :root{
+    --ink:#1B1512;
+    --ink-soft:#6B5F58;
+    --paper:#FAF6EF;
+    --paper-dim:#F1EAE0;
+    --hairline:#E3D9CB;
+    --wine:#7C2440;
+    --wine-deep:#4E1526;
+    --wine-bright:#9C3252;
+    --gold:#B08A4E;
+    --near-black:#120E0D;
+    --near-black-2:#1C1614;
+    --cream-on-dark:#EFE7DA;
+    --font-script:'Playball', cursive;
+    --font-serif:'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    --font-ui:'Jost', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html{scroll-behavior:smooth;scroll-padding-top:calc(64px + env(safe-area-inset-top,0px)); -webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--font-serif);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+    width:100%;
+    overflow-wrap:break-word;
+    word-break:break-word;
+  }
+  img,svg{max-width:100%;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    min-height:100svh;
+    background:
+      radial-gradient(120% 90% at 50% 0%, #241a18 0%, var(--near-black) 55%, var(--near-black) 100%);
+    color:var(--cream-on-dark);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:calc(48px + env(safe-area-inset-top,0px)) 24px 64px;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;
+    inset:-40px;
+    background-image:
+      repeating-linear-gradient(45deg, rgba(255,255,255,.025) 0 1px, transparent 1px 26px),
+      repeating-linear-gradient(-45deg, rgba(255,255,255,.025) 0 1px, transparent 1px 26px);
+    pointer-events:none;
+    animation:patternDrift 22s linear infinite;
+  }
+  @keyframes patternDrift{ to{ background-position:52px 52px, -52px 52px; } }
+  .hero-content{
+    position:relative; z-index:1; display:flex; flex-direction:column; align-items:center;
+    transform:translateY(calc(var(--parallax,0) * 1px)) scale(calc(1 - var(--parallax,0) * .0009));
+    opacity:var(--hero-fade,1);
+    will-change:transform, opacity;
+  }
+  .pulse-line{width:min(360px,72vw); height:52px; margin-bottom:6px; transform-origin:center; animation:heartbeat 2.2s ease-in-out 2.3s infinite;}
+  .pulse-line path{
+    fill:none; stroke:var(--wine-bright); stroke-width:3; stroke-linecap:round; stroke-linejoin:round;
+    stroke-dasharray:600; stroke-dashoffset:600;
+    filter:drop-shadow(0 0 0 rgba(156,50,82,0));
+    animation:draw 1.8s ease-out .3s forwards, glow 2.2s ease-in-out 2.3s infinite;
+  }
+  @keyframes draw{ to{ stroke-dashoffset:0; } }
+  @keyframes heartbeat{
+    0%,100%{ transform:scale(1); }
+    12%{ transform:scale(1.09); }
+    24%{ transform:scale(1); }
+    36%{ transform:scale(1.05); }
+    48%{ transform:scale(1); }
+  }
+  @keyframes glow{
+    0%,100%{ filter:drop-shadow(0 0 0 rgba(156,50,82,0)); }
+    12%{ filter:drop-shadow(0 0 6px rgba(156,50,82,.85)); }
+    24%{ filter:drop-shadow(0 0 0 rgba(156,50,82,0)); }
+  }
+  .wordmark{
+    font-family:var(--font-script);
+    font-size:clamp(64px,20vw,108px);
+    line-height:.9;
+    margin:0;
+    color:#fff;
+    font-weight:400;
+    opacity:0;
+    transform:translateY(14px) scale(.97);
+    animation:wordmarkIn 1s cubic-bezier(.2,.8,.2,1) .55s forwards;
+  }
+  @keyframes wordmarkIn{ to{ opacity:1; transform:translateY(0) scale(1); } }
+  .reveal-fade{
+    opacity:0;
+    transform:translateY(14px);
+    animation:revealFadeIn .8s cubic-bezier(.2,.8,.2,1) var(--d,.6s) forwards;
+  }
+  @keyframes revealFadeIn{ to{ opacity:1; transform:translateY(0); } }
+  .subtitle{
+    font-family:var(--font-ui);
+    font-size:13px;
+    letter-spacing:.42em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin:14px 0 0;
+    padding-left:.42em;
+  }
+  .hero-divider{width:56px;height:1px;background:var(--wine-bright);margin:26px 0;opacity:.7;}
+  .hero-loc{
+    font-family:var(--font-ui);
+    font-size:13.5px;
+    color:#C9BEB4;
+    line-height:1.9;
+    max-width:280px;
+  }
+  .view-menu-btn{
+    margin-top:38px;
+    font-family:var(--font-ui);
+    font-size:13px;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    color:var(--near-black);
+    background:var(--cream-on-dark);
+    border:none;
+    padding:15px 34px;
+    border-radius:2px;
+    cursor:pointer;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    transition:transform .35s cubic-bezier(.34,1.56,.64,1), box-shadow .3s ease;
+  }
+  .view-menu-btn:active{transform:scale(.94);}
+  .view-menu-btn:hover{transform:scale(1.04); box-shadow:0 10px 26px rgba(0,0,0,.32);}
+  .view-menu-btn svg{width:14px;height:14px; transition:transform .3s ease;}
+  .view-menu-btn:hover svg{transform:translateY(4px);}
+
+  .hero-scroll-cue{
+    position:absolute; left:50%; bottom:calc(22px + env(safe-area-inset-bottom,0px));
+    transform:translateX(-50%);
+    width:22px; height:34px;
+    border:1.5px solid rgba(239,231,218,.45);
+    border-radius:12px;
+    opacity:0;
+    animation:cueIn .8s ease 1.7s forwards;
+  }
+  .hero-scroll-cue::before{
+    content:"";
+    position:absolute; left:50%; top:7px;
+    width:4px; height:4px; margin-left:-2px;
+    background:var(--gold);
+    border-radius:50%;
+    animation:cueDot 1.7s ease-in-out infinite 2.4s;
+  }
+  @keyframes cueIn{ to{opacity:1;} }
+  @keyframes cueDot{ 0%,100%{ transform:translateY(0); opacity:1;} 60%{ transform:translateY(12px); opacity:0;} }
+
+  /* ---------- STICKY NAV ---------- */
+  .topbar{
+    position:sticky; top:0; z-index:50;
+    background:rgba(250,246,239,.94);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--hairline);
+    padding-top:env(safe-area-inset-top,0px);
+    transition:box-shadow .3s ease;
+  }
+  .topbar.scrolled{ box-shadow:0 6px 18px rgba(27,21,18,.06); }
+  .scroll-progress{
+    position:absolute; left:0; top:0; height:2px;
+    width:var(--progress,0%);
+    background:linear-gradient(90deg, var(--wine), var(--gold));
+    transition:width .1s linear;
+  }
+  .topbar-inner{
+    display:flex; align-items:center; gap:14px;
+    padding:10px 16px;
+    transition:padding .3s ease;
+  }
+  .topbar.scrolled .topbar-inner{ padding-top:7px; padding-bottom:7px; }
+  .topbar-mark{
+    font-family:var(--font-script);
+    font-size:24px;
+    color:var(--wine);
+    white-space:nowrap;
+    flex-shrink:0;
+    transition:font-size .3s ease;
+  }
+  .topbar.scrolled .topbar-mark{ font-size:20px; }
+  .search-wrap{flex:1; position:relative;}
+  .search-wrap input{
+    width:100%;
+    font-family:var(--font-ui);
+    font-size:16px;
+    border:1px solid var(--hairline);
+    background:#fff;
+    border-radius:20px;
+    padding:11px 14px 11px 34px;
+    color:var(--ink);
+    outline:none;
+    -webkit-appearance:none;
+    appearance:none;
+    transition:border-color .25s ease, box-shadow .25s ease;
+  }
+  .search-wrap input:focus{border-color:var(--wine); box-shadow:0 0 0 4px rgba(124,36,64,.12);}
+  .search-wrap svg{
+    position:absolute; left:12px; top:50%; transform:translateY(-50%);
+    width:14px; height:14px; color:var(--ink-soft); opacity:.7;
+    pointer-events:none;
+  }
+  .tabs{
+    display:flex; gap:6px; overflow-x:auto;
+    padding:0 16px 12px;
+    scrollbar-width:none;
+    -webkit-overflow-scrolling:touch;
+  }
+  .tabs::-webkit-scrollbar{display:none;}
+  .tab-btn{
+    font-family:var(--font-ui);
+    font-size:12.5px;
+    letter-spacing:.04em;
+    white-space:nowrap;
+    padding:11px 16px;
+    min-height:44px;
+    display:inline-flex;
+    align-items:center;
+    border-radius:22px;
+    border:1px solid var(--hairline);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    flex-shrink:0;
+    transition:background .25s ease, color .25s ease, border-color .25s ease, transform .35s cubic-bezier(.34,1.56,.64,1);
+  }
+  .tab-btn:active{ transform:scale(.92); }
+  .tab-btn.active{
+    background:var(--wine);
+    border-color:var(--wine);
+    color:#fff;
+    animation:tabPop .4s cubic-bezier(.34,1.56,.64,1);
+  }
+  @keyframes tabPop{ 0%{ transform:scale(.9); } 60%{ transform:scale(1.06); } 100%{ transform:scale(1); } }
+
+  /* ---------- CONTENT ---------- */
+  main{max-width:640px; margin:0 auto; padding:8px 20px 140px;}
+  .category{
+    padding-top:34px; scroll-margin-top:120px;
+    opacity:0; transform:translateY(22px);
+    transition:opacity .7s cubic-bezier(.2,.8,.2,1), transform .7s cubic-bezier(.2,.8,.2,1);
+  }
+  .category.in-view{ opacity:1; transform:translateY(0); }
+  .category:first-of-type{padding-top:22px;}
+  .category-head{
+    display:flex; align-items:center; gap:14px;
+    margin-bottom:4px;
+  }
+  .category-icon{
+    width:44px; height:44px;
+    flex-shrink:0;
+    border-radius:50%;
+    background:radial-gradient(circle at 32% 28%, var(--wine-bright) 0%, var(--wine) 55%, var(--wine-deep) 100%);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 3px 8px rgba(76,20,36,.25);
+    transform:scale(.4) rotate(-24deg);
+    opacity:0;
+  }
+  .category.in-view .category-icon{
+    animation:iconPop .65s cubic-bezier(.34,1.56,.64,1) forwards, iconGlow 3.4s ease-in-out 1s infinite;
+  }
+  @keyframes iconPop{ to{ transform:scale(1) rotate(0deg); opacity:1; } }
+  @keyframes iconGlow{
+    0%,100%{ box-shadow:0 3px 8px rgba(76,20,36,.25); }
+    50%{ box-shadow:0 3px 18px rgba(156,50,82,.55); }
+  }
+  .category-icon svg{
+    width:22px; height:22px;
+    stroke:var(--cream-on-dark);
+    fill:none;
+  }
+  .category-head h2{
+    font-family:var(--font-serif);
+    font-weight:600;
+    font-size:26px;
+    color:var(--wine-deep);
+    margin:0;
+  }
+  .category-rule{
+    flex:1; height:1px; background:var(--hairline); align-self:flex-end; margin-bottom:9px;
+    transform:scaleX(0); transform-origin:left;
+  }
+  .category.in-view .category-rule{
+    animation:ruleIn .8s cubic-bezier(.2,.8,.2,1) .15s forwards;
+  }
+  @keyframes ruleIn{ to{ transform:scaleX(1); } }
+  .category-note{
+    font-family:var(--font-ui);
+    font-style:normal;
+    font-size:12.5px;
+    color:var(--ink-soft);
+    margin:2px 0 18px;
+    line-height:1.6;
+  }
+  .subgroup-title{
+    font-family:var(--font-ui);
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin:22px 0 8px;
+  }
+  .item-row{
+    display:flex; justify-content:space-between; align-items:baseline; gap:16px;
+    padding:13px 4px;
+    margin:0 -4px;
+    border-bottom:1px solid var(--hairline);
+    border-radius:8px;
+    transition:background .25s ease, transform .25s cubic-bezier(.34,1.56,.64,1);
+    opacity:0;
+    transform:translateY(10px);
+  }
+  .category.in-view .item-row{
+    animation:itemIn .55s cubic-bezier(.2,.8,.2,1) calc(min(var(--i,0),14) * 45ms) forwards;
+  }
+  @keyframes itemIn{ to{ opacity:1; transform:translateY(0); } }
+  .item-row:active{ background:var(--paper-dim); transform:scale(.985); }
+  @media (hover:hover){
+    .item-row:hover{ background:var(--paper-dim); transform:translateX(3px); }
+    .item-row:hover .item-price{ transform:scale(1.08); }
+  }
+  .item-row:last-child{border-bottom:none;}
+  .item-main{flex:1; min-width:0;}
+  .item-name{
+    font-size:18px; font-weight:500; color:var(--ink);
+    line-height:1.3;
+  }
+  .item-desc{
+    font-family:var(--font-ui);
+    font-style:italic;
+    font-size:13px;
+    color:var(--ink-soft);
+    margin-top:2px;
+    line-height:1.5;
+  }
+  .item-price{
+    font-family:var(--font-ui);
+    font-size:14.5px;
+    font-weight:500;
+    color:var(--wine);
+    white-space:nowrap;
+    flex-shrink:0;
+    transition:transform .25s cubic-bezier(.34,1.56,.64,1);
+    display:inline-block;
+  }
+  .item-price.ask{color:var(--ink-soft); font-style:italic; font-family:var(--font-serif); font-size:13px;}
+
+  .daily-card{
+    background:var(--paper-dim);
+    border:1px solid var(--hairline);
+    border-radius:4px;
+    padding:16px 18px;
+    margin-top:18px;
+  }
+  .daily-row{
+    display:flex; gap:14px; padding:7px 0;
+    font-family:var(--font-ui); font-size:13.5px;
+  }
+  .daily-row .day{ width:78px; flex-shrink:0; color:var(--wine); font-weight:600; letter-spacing:.02em;}
+  .daily-row .opt{ color:var(--ink-soft); }
+  .daily-row .opt .item-price{ font-size:13.5px; }
+  .daily-row .opt-or{ font-style:italic; color:var(--ink-soft); opacity:.7; }
+
+  .no-results{
+    text-align:center; padding:60px 20px; color:var(--ink-soft);
+    font-family:var(--font-ui); font-size:14px;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:var(--near-black);
+    color:#C9BEB4;
+    text-align:center;
+    padding:48px 24px calc(40px + env(safe-area-inset-bottom,0px));
+  }
+  footer .foot-mark{font-family:var(--font-script); font-size:34px; color:#fff; margin-bottom:4px;}
+  footer .foot-sub{font-family:var(--font-ui); font-size:11px; letter-spacing:.3em; text-transform:uppercase; color:var(--gold); margin-bottom:22px;}
+  footer .foot-line{font-family:var(--font-ui); font-size:13px; line-height:2; color:#C9BEB4;}
+
+  /* ---------- INSTALL PROMPT ---------- */
+  .install-banner{
+    position:fixed; left:14px; right:14px;
+    bottom:calc(14px + env(safe-area-inset-bottom,0px));
+    z-index:80;
+    background:var(--near-black-2);
+    color:var(--cream-on-dark);
+    border-radius:14px;
+    padding:14px 14px 14px 16px;
+    display:flex; align-items:center; gap:12px;
+    box-shadow:0 12px 30px rgba(0,0,0,.35);
+    transform:translateY(140%);
+    transition:transform .55s cubic-bezier(.34,1.56,.64,1);
+    max-width:640px; margin:0 auto;
+  }
+  .install-banner.show{transform:translateY(0);}
+  .install-icon{
+    width:38px; height:38px; border-radius:9px; background:var(--wine);
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+    animation:iconGlow 3.4s ease-in-out 1s infinite;
+  }
+  .install-icon svg{width:19px; height:19px; color:#fff;}
+  .install-text{flex:1; font-family:var(--font-ui);}
+  .install-text .t1{font-size:13.5px; font-weight:500; color:#fff;}
+  .install-text .t2{font-size:11.5px; color:#B7ABA0; margin-top:1px; line-height:1.4;}
+  .install-actions{display:flex; align-items:center; gap:8px; flex-shrink:0;}
+  .install-go{
+    font-family:var(--font-ui); font-size:12.5px; font-weight:500;
+    background:var(--cream-on-dark); color:var(--near-black);
+    border:none; border-radius:18px; padding:9px 16px; cursor:pointer;
+    transition:transform .3s cubic-bezier(.34,1.56,.64,1);
+  }
+  .install-go:active{ transform:scale(.9); }
+  @media (hover:hover){ .install-go:hover{ transform:scale(1.06); } }
+  .install-close{
+    background:none; border:none; color:#8C8078; cursor:pointer; padding:6px;
+    display:flex;
+    transition:transform .25s ease, color .25s ease;
+  }
+  .install-close:active{ transform:scale(.85) rotate(90deg); }
+  .install-close svg{width:15px;height:15px;}
+
+  /* ---------- SWIPE HINT ---------- */
+  .swipe-hint{
+    position:fixed; left:50%; bottom:calc(24px + env(safe-area-inset-bottom,0px));
+    transform:translate(-50%, 12px) scale(.9);
+    z-index:70;
+    background:var(--near-black-2);
+    color:var(--cream-on-dark);
+    font-family:var(--font-ui);
+    font-size:12.5px;
+    display:flex; align-items:center; gap:8px;
+    padding:10px 16px;
+    border-radius:20px;
+    box-shadow:0 10px 26px rgba(0,0,0,.3);
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .4s ease, transform .45s cubic-bezier(.34,1.56,.64,1);
+    white-space:nowrap;
+  }
+  .swipe-hint.show{ opacity:1; transform:translate(-50%, 0) scale(1); }
+  .swipe-hint svg{width:14px; height:14px; flex-shrink:0; opacity:.85;}
+  .swipe-hint.show svg:first-child{ animation:swipeWiggleLeft 1.1s ease-in-out infinite; }
+  .swipe-hint.show svg:last-child{ animation:swipeWiggleRight 1.1s ease-in-out infinite; }
+  @keyframes swipeWiggleLeft{ 0%,100%{ transform:translateX(0); } 50%{ transform:translateX(-3px); } }
+  @keyframes swipeWiggleRight{ 0%,100%{ transform:translateX(0); } 50%{ transform:translateX(3px); } }
+
+  /* ---------- BACK TO TOP ---------- */
+  .back-to-top{
+    position:fixed; right:16px; bottom:calc(16px + env(safe-area-inset-bottom,0px));
+    z-index:70;
+    width:44px; height:44px;
+    border-radius:50%;
+    border:1px solid var(--hairline);
+    background:rgba(250,246,239,.92);
+    backdrop-filter:blur(8px);
+    color:var(--wine);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 8px 20px rgba(27,21,18,.14);
+    cursor:pointer;
+    opacity:0; transform:translateY(14px) scale(.9);
+    pointer-events:none;
+    transition:opacity .35s ease, transform .35s cubic-bezier(.34,1.56,.64,1), box-shadow .25s ease;
+  }
+  .back-to-top.show{ opacity:1; transform:translateY(0) scale(1); pointer-events:auto; }
+  .back-to-top:active{ transform:scale(.88); }
+  @media (hover:hover){
+    .back-to-top:hover{ transform:translateY(-3px) scale(1.06); box-shadow:0 12px 26px rgba(27,21,18,.22); }
+    .back-to-top:hover svg{ transform:translateY(-2px); }
+  }
+  .back-to-top svg{width:18px; height:18px; transition:transform .3s cubic-bezier(.34,1.56,.64,1);}
+
+  /* ---------- SWIPE TRANSITION ---------- */
+  #menu-root{ transition:transform .4s cubic-bezier(.34,1.56,.64,1), opacity .22s ease; }
+  #menu-root.swiping{ transform:translateX(var(--swipe-x,0px)) rotate(var(--swipe-rot,0deg)); }
+
+  @media (min-width:640px){
+    .item-name{font-size:19px;}
+    .category-head h2{font-size:29px;}
+  }
+
+  /* ---------- TABLET & UP ---------- */
+  @media (min-width:760px){
+    main{max-width:900px; padding:8px 40px 160px;}
+    .topbar-inner{max-width:900px; margin:0 auto; padding:14px 40px;}
+    .tabs{max-width:900px; margin:0 auto; padding:0 40px 16px;}
+    .install-banner{max-width:900px; left:0; right:0; padding:16px 20px;}
+
+    .items-grid{
+      column-count:2;
+      column-gap:48px;
+    }
+    .items-grid .item-row{ break-inside:avoid; -webkit-column-break-inside:avoid; }
+    .items-grid .subgroup-title{ break-after:avoid; break-inside:avoid; column-span:all; }
+    .category-note{ column-span:all; }
+
+    .hero-loc{max-width:340px;}
+    .wordmark{font-size:clamp(88px,14vw,132px);}
+  }
+
+  /* ---------- LARGE TABLET / DESKTOP ---------- */
+  @media (min-width:1024px){
+    main{max-width:1080px;}
+    .topbar-inner, .tabs, .install-banner{max-width:1080px;}
+    .items-grid{column-count:3; column-gap:44px;}
+  }
+
+  /* ---------- SMALL PHONES ---------- */
+  @media (max-width:360px){
+    .hero-loc{font-size:12.5px;}
+    .item-name{font-size:16.5px;}
+    .search-wrap input{padding-left:32px;}
+  }
+
+  /* ---------- SHORT / LANDSCAPE PHONES ---------- */
+  @media (max-height:480px) and (orientation:landscape){
+    .hero{min-height:auto; padding-top:calc(32px + env(safe-area-inset-top,0px)); padding-bottom:32px;}
+    .pulse-line{margin-bottom:0;}
+    .hero-divider{margin:16px 0;}
+    .view-menu-btn{margin-top:20px;}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+    .pulse-line{animation:none;}
+    .pulse-line path{animation:none; stroke-dashoffset:0; filter:none;}
+    .hero::before{animation:none;}
+    .install-banner{transition:none;}
+    .install-icon{animation:none;}
+    .wordmark{animation:none; opacity:1; transform:none;}
+    .reveal-fade{animation:none; opacity:1; transform:none;}
+    .hero-scroll-cue{animation:none; opacity:1;}
+    .hero-scroll-cue::before{animation:none;}
+    .hero-content{transform:none !important;}
+    .category{transition:none; opacity:1; transform:none;}
+    .category-icon{animation:none; opacity:1; transform:none;}
+    .category-rule{animation:none; transform:scaleX(1);}
+    .item-row{animation:none; opacity:1; transform:none;}
+    .tab-btn.active{animation:none;}
+    .swipe-hint.show svg{animation:none;}
+    #menu-root{transition:none;}
+    .back-to-top, .swipe-hint{transition:none;}
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-content" id="hero-content">
+    <svg class="pulse-line" viewBox="0 0 300 60" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,30 L80,30 L100,8 L118,52 L136,18 L150,30 L300,30"/>
+    </svg>
+    <h1 class="wordmark" id="wordmark">Pulse</h1>
+    <p class="subtitle reveal-fade" style="--d:.9s">Restaurant &amp; Bar</p>
+    <div class="hero-divider reveal-fade" style="--d:1.05s"></div>
+    <p class="hero-loc reveal-fade" style="--d:1.2s">Cathedral House, 3 Gloucester Street, Freetown<br>+232&nbsp;75&nbsp;200&nbsp;020&nbsp;·&nbsp;+232&nbsp;31&nbsp;200&nbsp;020</p>
+    <button class="view-menu-btn reveal-fade" style="--d:1.4s" onclick="document.getElementById('menu-start').scrollIntoView({behavior:'smooth'})">
+      View Menu
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    </button>
+  </div>
+  <div class="hero-scroll-cue" id="hero-scroll-cue"></div>
+</section>
+
+<!-- STICKY TOPBAR -->
+<div class="topbar" id="topbar">
+  <div class="scroll-progress" id="scroll-progress"></div>
+  <div class="topbar-inner">
+    <span class="topbar-mark">Pulse</span>
+    <div class="search-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <input id="search" type="text" placeholder="Search the menu…" autocomplete="off">
+    </div>
+  </div>
+  <div class="tabs" id="tabs"></div>
+</div>
+
+<div class="swipe-hint" id="swipe-hint">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12H4M4 12l6-6M4 12l6 6"/></svg>
+  Swipe to switch categories
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16M20 12l-6-6M20 12l-6 6"/></svg>
+</div>
+
+<main id="menu-start">
+  <div id="menu-root"></div>
+  <div class="no-results" id="no-results" style="display:none;">Nothing on the menu matches that search.</div>
+</main>
+
+<button class="back-to-top" id="back-to-top" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+
+<footer>
+  <div class="foot-mark">Pulse</div>
+  <div class="foot-sub">Restaurant &amp; Bar</div>
+  <div class="foot-line">Cathedral House, 3 Gloucester Street, Freetown.<br>+232 75 200 020 · +232 31 200 020</div>
+</footer>
+
+<!-- INSTALL PROMPT -->
+<div class="install-banner" id="install-banner">
+  <div class="install-icon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v13M6 11l6 6 6-6"/><path d="M5 21h14"/></svg>
+  </div>
+  <div class="install-text">
+    <div class="t1" id="install-title">Add Pulse to your home screen</div>
+    <div class="t2" id="install-sub">Open the menu instantly next time, no browser needed.</div>
+  </div>
+  <div class="install-actions">
+    <button class="install-go" id="install-go" style="display:none;">Add</button>
+    <button class="install-close" id="install-close" aria-label="Dismiss">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+/* ============ MENU DATA ============ */
+const CURRENCY = "Le ";
+const item = (name, price, desc) => ({name, price, desc});
+
+const TABS = [
+  {
+    id:"breakfast", label:"Breakfast",
+    categories:[
+      {
+        title:"Buffet Breakfast",
+        note:"Coffee or hot tea, egg, potato and breakfast meat, selection of bakery items and fresh fruit — <span class=\"item-price\">Le 200.00</span>, including all the choices below",
+        subgroups:[
+          {title:"Eggs — choice of 2", items:[
+            item("Salone Omelet"), item("Fried Eggs"), item("French Toast"), item("Scrambled Eggs")
+          ]},
+          {title:"Potato", items:[
+            item("Hash Browns"), item("Lyonnaise Potatoes"),
+            item("Pan Fried Sliced Potatoes", null, "with caramelized onions"),
+            item("Diced Potatoes", null, "onions, red and green peppers")
+          ]},
+          {title:"Breakfast Meat — choice of 2", items:[
+            item("Chicken Sausages"), item("Chicken Breast"), item("Luncheon Meat / Meat Loaf"), item("Bacon")
+          ]},
+          {title:"Bakery", items:[
+            item("Doughnut"),
+            item("Bread Selection", null, "White, brown or wheat bread")
+          ]}
+        ]
+      },
+      {
+        title:"Ordinary Breakfast",
+        note:"Eggs, sausage, butter, coffee or tea",
+        items:[ item("Ordinary Breakfast", 80) ]
+      },
+      {
+        title:"Custard",
+        items:[
+          item("Custard", 100, "Pancake, fruits, bread toast, plantain")
+        ]
+      },
+      {
+        title:"Additional",
+        items:[
+          item("Fruits",40), item("Cereals",25), item("Mushroom",25), item("Grilled Tomatoes",25),
+          item("Rice",40), item("Pounded Yam",40), item("Beef / Chicken",60), item("Eba",30),
+          item("Foo Foo",30), item("Bacon",40), item("Cheese",35), item("Eggs",20),
+          item("Chips",35), item("Extra Food",40)
+        ]
+      },
+      {
+        title:"Tea & Coffee",
+        items:[
+          item("Breakfast Tea",20), item("Latte",35), item("Espresso",30), item("Double Espresso",45),
+          item("Cappuccino",35), item("Americano",30), item("Café Macchoato",40)
+        ]
+      },
+      {
+        title:"Hot Coffee & Tea Cocktail",
+        items:[
+          item("Zeus",70,"Brandy, cointreau, kahlua, brewed coffee, sugar, cream"),
+          item("Aphrodite",70,"Brewed coffee, cream, kahlua, vodka, whipped cream"),
+          item("Cybele",70,"Green tea, gin, honey, cinnamon"),
+          item("Athena",70,"Rum, bourbon whiskey, mint tea, honey")
+        ]
+      }
+    ]
+  },
+  {
+    id:"chefspecial", label:"Chef's Special",
+    categories:[
+      {
+        title:"Chef's Special",
+        items:[
+          item("Chef Magic Platter", null, "Plantain, shawarma, rice akara, jumbo shrimps or normal shrimps, fried rice or jollof rice, chicken leg or chicken wings, rose apple")
+        ]
+      }
+    ]
+  },
+  {
+    id:"starters", label:"Starters & Salads",
+    categories:[
+      {
+        title:"Salads",
+        items:[
+          item("Chicken Caesar Salad",225),
+          item("Creole Salad",225),
+          item("Prawn Cocktail",260),
+          item("Seafood Deluxe",270,"Seasonal seafood in lemon, served with garden salad, vinaigrette dressing or thousand island sauce")
+        ]
+      },
+      {
+        title:"Soups",
+        items:[
+          item("Spicy Seafood Chowder",270,"Mixed seafood in coconut milk"),
+          item("Cream of Chicken",190),
+          item("Cream of Mushroom",190)
+        ]
+      },
+      {
+        title:"Pulse's Savory",
+        items:[
+          item("Kebbe — 3",170,"Beef or chicken"),
+          item("Spring Rolls — 3",140),
+          item("Chicken Wings — 4",140),
+          item("Lobster Crostini",190,"Lobster, crusty herb & garlic bread"),
+          item("Calamari Fritti",170,"Deep fried squid on caponata sauce"),
+          item("Hummus",140),
+          item("Hummus with Meat",170),
+          item("Deep Fried Crispy Chicken",85,"Per drumstick piece"),
+          item("Deep Fried Potato Pancake",140),
+          item("French Toast Bread",60),
+          item("Chicken Nuggets with Chips",190)
+        ]
+      }
+    ]
+  },
+  {
+    id:"mains", label:"Mains & Grill",
+    categories:[
+      {
+        title:"Sandwiches & Burgers",
+        note:"Served with fries · choice of sliced bread, baguette or bun",
+        items:[
+          item("Jackpot",235,"Smoked chicken, bacon, balsamic mayo, cheddar & mozzarella cheese with fresh tomato"),
+          item("Spicy Chicken",210,"Tomato, lettuce and bleu cheese"),
+          item("Chicken",210),
+          item("Philadelphia Steak",235),
+          item("Club Pulse Combo (P)",240,"Grilled chicken, bacon, tomato, lettuce & egg"),
+          item("Chicken Shawarma with Chips",135),
+          item("Beef Shawarma with Chips",140),
+          item("Beef Burger with Chips",140),
+          item("Chicken Burger with Chips",135),
+          item("Fish Burger with Chips",135)
+        ]
+      },
+      {
+        title:"From the Grill (250g)",
+        note:"Choice of tossed salad, French fries, fried rice, jollof rice, roast potato, sweet potato or plantain",
+        items:[
+          item("Rib-Eye Steak",410), item("Rack of Lamb",430), item("Lamb Shank",430),
+          item("Calamari Steaks",330), item("Chicken Supreme",330), item("Peri-Peri Chicken",390),
+          item("Grilled Half Local Chicken",390), item("Grilled Catch of the Day",410),
+          item("\u201CLuxury\u201D Assiette of Seafood",470), item("Grilled Shrimps",460),
+          item("Grilled Lobster",530), item("Grilled Chicken Breast",390),
+          item("Philadelphia Cheese Steak",435), item("Grilled Jumbo Shrimps",530)
+        ]
+      },
+      {
+        title:"More from the Kitchen",
+        note:"Served with vegetable, chips, fried rice",
+        items:[
+          item("Grilled SL Spicy Roast Fish",390),
+          item("Deep Fried Crispy Roast Fish",390), item("Shrimps Provincial",460),
+          item("Shrimps Tempura with Tartar Sauce",460),
+          item("Beef Strongnuff",440)
+        ]
+      },
+      {
+        title:"Specialty",
+        items:[
+          item("Seafood Curved Curry",285,"Assorted seafood in spicy curry sauce and coconut milk"),
+          item("Kebab — 3",390,"Choice of goat meat, beef or chicken"),
+          item("Curry Korma",330,"Salone style — goat or chicken"),
+          item("Sauté Liver",390,"Served with vegetable and choice of side"),
+          item("Friday Buffets",290)
+        ]
+      }
+    ]
+  },
+  {
+    id:"pizzapasta", label:"Pizza & Pasta",
+    categories:[
+      {
+        title:"Pasta",
+        items:[
+          item("Shrimp Carbonara",285), item("Spaghetti Bolognese",285),
+          item("Spaghetti",250,"Shrimps, olive oil and chili with sweet tomato sauce"),
+          item("Lasagne with Meat Sauce",285)
+        ]
+      },
+      {
+        title:"Pizza 10\u2033",
+        items:[
+          item("\u201CSanta\u201D Margharita (V)",290,"Tomato, olives, cheese and herbs"),
+          item("Ragin Rooster",290,"Grilled chicken in killer BBQ sauce, onions, cheddar and mozzarella"),
+          item("Seafood Sierra",335,"Lobster, shrimps, calamari, fish, olives"),
+          item("The Zone",290,"Pizza stuffed with beef sausage, pepperoni / chicken, onions, tomato sauce, olives and cheese"),
+          item("Royal Meat Supreme",290,"Diced meat, chicken, ham, fresh tomatoes, mushrooms, onions, tomato sauce"),
+          item("Chicken Sweet Chilli",350,"Diced chicken")
+        ]
+      }
+    ]
+  },
+  {
+    id:"local", label:"Local Flavors",
+    categories:[
+      {
+        title:"Local Selection",
+        items:[
+          item("Local Pepper Soup",180,"Cow foot / chicken / beef / fish"),
+          item("Local Pepper Soup — Goat",185),
+          item("Local of the Day",null,"Palm oil or vegetable oil & fresh or smoked fish, beef or chicken — Le 140.00 or Le 175.00"),
+          item("Daily — Egusi",235,"Served with eba, pounded yam or foo foo"),
+          item("Daily — Jollof Rice",180,"Served with stew or white rice"),
+          item("Daily",175,"Chicken, meat, fish or egg fried rice / bulgur"),
+          item("Shrimps Fried Rice",260),
+          item("Daily Attiéké",null,"Served with fish or local chicken — Le 300.00 · English chicken — Le 280.00")
+        ]
+      }
+    ],
+    daily:[
+      ["Mondays",[["Cassava Leaves",140],["Banga Soup",175]]],
+      ["Tuesdays",[["Potato Leaves",140],["Beans",140]]],
+      ["Wednesdays",[["Stewed Greens",175],["Groundnut Stew",140]]],
+      ["Thursdays",[["Krain Krain",140],["Palm Oil Stew",140]]],
+      ["Saturdays","Foo foo, pounded yam or eba served with local of the day"]
+    ]
+  },
+  {
+    id:"desserts", label:"Desserts",
+    categories:[
+      {
+        title:"Desserts",
+        items:[
+          item("Fruit Salad",90,"With a single scoop of ice cream"),
+          item("Ordinary Fruit Salad",60)
+        ]
+      }
+    ]
+  },
+  {
+    id:"drinks", label:"Drinks",
+    categories:[
+      {
+        title:"Soft Drinks",
+        items:[
+          item("Coke",40), item("Sprite",40), item("Fanta",40), item("Diet Coke",50), item("Vimto",50),
+          item("Club Soda",35), item("Tonic",50), item("Red Bull",50), item("Maltina",35),
+          item("Box Juice",120), item("Box Juice (Glass)",30), item("Local Fresh Ginger Beer",20),
+          item("Water — Small",10), item("Water — Large",20), item("Sparkling Water",50)
+        ]
+      },
+      {
+        title:"Beer",
+        items:[
+          item("Mutzig",45), item("Star",40), item("Becks",60), item("Heineken",80),
+          item("Cider",80), item("Amstel",50), item("Guinness Can",50)
+        ]
+      },
+      {
+        title:"Wines",
+        subgroups:[
+          {title:"White Wines", items:[
+            item("Glass House Wine White",50,"Fresh and fruity, loaded with notes of tropical exotic and fresh pears — a crispy wine")
+          ]}
+        ]
+      },
+      {
+        title:"Spirits",
+        subgroups:[
+          {title:"Vodka", items:[ item("Grey Goose",40), item("Absolut Blue",30) ]},
+          {title:"Gin", items:[ item("Bombay Sapphire",35), item("Tanqueray",30) ]},
+          {title:"Tequila", items:[ item("Tequila",35) ]},
+          {title:"Single Malt Whisky", items:[ item("Glenfiddich",60) ]},
+          {title:"Aged Whisky", items:[ item("Chivas 12 Years",50) ]},
+          {title:"Premium Whiskey", items:[ item("Johnny Walker Black Label",50) ]},
+          {title:"Bourbon Whisky", items:[ item("Jack Daniels",40) ]},
+          {title:"Rum", items:[ item("Bacardi Black / White",30), item("Captain Morgan Dark",30), item("Captain Morgan Spiced",30) ]},
+          {title:"Cognac", items:[ item("Hennessy VSOP",55), item("Courvoisier VSOP",60) ]},
+          {title:"Liqueurs", items:[
+            item("Martini Rosso / Bianco",30), item("Pimm's",30), item("Pernod",30), item("Baileys",30),
+            item("Kahlua",30), item("Tia Maria",30), item("Amarula",30), item("Jagermeister",30),
+            item("Campari",30), item("Contreau",30), item("Camillo",30), item("Fireballs Cinnamon",30),
+            item("Sambuka",30), item("Grand Mariner",30)
+          ]}
+        ]
+      }
+    ]
+  },
+  {
+    id:"cocktails", label:"Cocktails",
+    categories:[
+      {
+        title:"Mocktails",
+        items:[
+          item("Shirley Temple",null,"Grenadine, sprite, lime wedges — ask your server for price"),
+          item("Jamaica Baha Mama",50,"Pineapple juice, orange juice, grenadine"),
+          item("Chapman",50,"Orange juice, grenadine, sprite, bitters"),
+          item("Coconut Kiss",50,"Pineapple juice, coconut cream, grenadine"),
+          item("Mint Julep",50,"Mint syrup, lime, sprite"),
+          item("Cranberry Spritzer",50,"Cranberry juice, apple juice, orange"),
+          item("Ginger Mint Lemonade",50,"Ginger, mint leaves, lime")
+        ]
+      },
+      {
+        title:"Milkshakes & Smoothies",
+        items:[
+          item("Milkshake — Strawberry",80), item("Milkshake — Chocolate",80),
+          item("Smoothie",50,"Banana, mango, pineapple or watermelon")
+        ]
+      },
+      {
+        title:"Cocktails",
+        items:[
+          item("Piña Colada",100,"Malibu, coconut cream, pineapple juice"),
+          item("Mojito",100,"Bacardi white, mint leaves, brown sugar, sprite, lemon wedges"),
+          item("Absolut Ginger Smash",100,"Absolut Blue, local ginger beer, lemon"),
+          item("Negroni",100,"Campari, martini rosso, soda, lemon peel"),
+          item("Blue Hawaii",100,"Blue curaçao, pineapple juice, Bacardi white"),
+          item("Long Island Ice Tea",100,"Gin, vodka, tequila, Bacardi, Cointreau, coke, lime"),
+          item("Tennessee Mule",100,"Jack Daniels, ginger beer, lime wedges"),
+          item("BMW",100,"Baileys, Malibu, whiskey")
+        ]
+      },
+      {
+        title:"Signature Cocktails",
+        items:[
+          item("Pulse Paradise",150,"Grenadine, Malibu, orange juice, blue curaçao"),
+          item("Pulse Summertime",150,"Absolut Citron, sweet sour, sprite, soda, lemon"),
+          item("Apple Judy",150,"Grand Marnier, vodka, apple juice")
+        ]
+      },
+      {
+        title:"Pulse Splash Corner",
+        items:[
+          item("Malibu, Pineapple",60),
+          item("Fresh Local Ginger Beer, Vodka",60,"Choice of vodka"),
+          item("Rum and Coke",60,"Choice of rum")
+        ]
+      },
+      {
+        title:"Shooters",
+        items:[
+          item("Pulse",60,"Baileys, Kahlua"),
+          item("Slippery Nipple",60,"Vanilla vodka, Baileys"),
+          item("Cement Mixer",60,"Baileys, lime cordial"),
+          item("Paradise Fire",60,"Tobacco tequila")
+        ]
+      }
+    ]
+  }
+];
+
+/* ============ RENDER ============ */
+const tabsEl = document.getElementById('tabs');
+const rootEl = document.getElementById('menu-root');
+const noResultsEl = document.getElementById('no-results');
+
+/* Line-art icon set used as category-divider badges (brand-matched, self-contained SVG) */
+const ICONS = {
+  egg:      `<circle cx="12" cy="12" r="8.4"/><circle cx="12" cy="12" r="3.1" fill="currentColor" stroke="none"/>`,
+  coffee:   `<path d="M4.5 9.5h13v5.2a4.3 4.3 0 0 1-4.3 4.3H8.8a4.3 4.3 0 0 1-4.3-4.3z"/><path d="M17.5 10.5h1.6a2.1 2.1 0 0 1 0 4.2h-1.6"/><path d="M8 3.3c0 1-1 1-1 2s1 1 1 2M12 3.3c0 1-1 1-1 2s1 1 1 2"/>`,
+  chef:     `<path d="M7 10.2a2.9 2.9 0 0 1 .8-5.7A3.3 3.3 0 0 1 12 3a3.3 3.3 0 0 1 4.2 1.4 2.9 2.9 0 0 1 .8 5.8v3.3H7z"/><path d="M7.3 16.5h9.4v3.2a1 1 0 0 1-1 1h-7.4a1 1 0 0 1-1-1z"/>`,
+  salad:    `<path d="M3.6 12a8.4 8.4 0 0 0 16.8 0z"/><path d="M3.6 12h16.8"/><path d="M12 12c-1-3 .8-5.4 4-5.4"/>`,
+  soup:     `<path d="M3.2 12a8.8 8.8 0 0 0 17.6 0z"/><path d="M3.2 12h17.6"/><path d="M9 3.6c0 1-1 1-1 2s1 1 1 2M15 3.6c0 1-1 1-1 2s1 1 1 2"/>`,
+  skewer:   `<line x1="3.5" y1="20.5" x2="20.5" y2="3.5"/><rect x="6.4" y="6.4" width="4.4" height="4.4" rx="1" transform="rotate(45 8.6 8.6)"/><rect x="13.2" y="13.2" width="4.4" height="4.4" rx="1" transform="rotate(45 15.4 15.4)"/>`,
+  burger:   `<path d="M4.5 10.2h15c.5 0 .9.5.8 1a5.4 5.4 0 0 1-5.3 4.6H9c-2.6 0-4.8-1.9-5.3-4.6-.1-.5.3-1 .8-1z"/><path d="M5.3 8.3c0-2.2 3-4 6.7-4s6.7 1.8 6.7 4"/><path d="M4.2 17.4h15.6"/>`,
+  flame:    `<path d="M12 2.7c-3.6 3.6-5.6 6.3-5.6 9.4a5.6 5.6 0 0 0 11.2 0c0-1.6-.7-3-1.7-4.2.4 1.7-.8 2.6-1.9 2.6a1.9 1.9 0 0 1-1.9-1.9c0-1.7.9-2.8-.1-5.9z"/>`,
+  platefork:`<circle cx="12" cy="12" r="8.6"/><line x1="8.1" y1="7" x2="8.1" y2="17"/><line x1="6.4" y1="7" x2="6.4" y2="11"/><line x1="9.8" y1="7" x2="9.8" y2="11"/><path d="M16 7v4.5a1.7 1.7 0 0 1-1.7 1.7"/><line x1="16" y1="7" x2="16" y2="17"/>`,
+  noodle:   `<path d="M3.6 13a8.4 8.4 0 0 0 16.8 0z"/><path d="M3.6 13h16.8"/><path d="M8.7 13c0-2.3 2-2.9 2-5.2M13.6 13c0-3.1-2.2-2.9-2.2-6"/>`,
+  pizza:    `<path d="M12 3.3 20.5 19H3.5z"/><path d="M4 18.6a9.4 15.6 0 0 0 16 0"/><circle cx="12" cy="12.2" r="1" fill="currentColor" stroke="none"/><circle cx="9.4" cy="15.8" r="1" fill="currentColor" stroke="none"/><circle cx="14.7" cy="15.8" r="1" fill="currentColor" stroke="none"/>`,
+  localbowl:`<path d="M3.2 12a8.8 8.8 0 0 0 17.6 0z"/><path d="M3.2 12h17.6"/><circle cx="9.3" cy="8.8" r=".9" fill="currentColor" stroke="none"/><circle cx="12.4" cy="7" r=".9" fill="currentColor" stroke="none"/><circle cx="15.4" cy="8.8" r=".9" fill="currentColor" stroke="none"/>`,
+  dessert:  `<path d="M6.3 10.6h11.4l-1.4 8.2a2 2 0 0 1-2 1.7h-4.6a2 2 0 0 1-2-1.7z"/><path d="M7.3 10.6a4.7 4.7 0 0 1 9.4 0"/><path d="M12 3v3M9.3 5l1 1.1M14.7 5l-1 1.1"/>`,
+  softcup:  `<path d="M6.2 8.2h11.6l-1.1 11.3a2 2 0 0 1-2 1.8H9.3a2 2 0 0 1-2-1.8z"/><path d="M5.2 8.2h13.6"/><line x1="15.5" y1="3.3" x2="13.2" y2="8.2"/>`,
+  beer:     `<path d="M5.4 7.2h9.4V19a1 1 0 0 1-1 1H6.4a1 1 0 0 1-1-1z"/><path d="M14.8 9.3h2a2.1 2.1 0 0 1 0 4.2h-2"/><path d="M5.6 7.2c0-1.2 1-2.4 2.2-2.4h4.8c1.2 0 2.2 1.2 2.2 2.4"/>`,
+  wine:     `<path d="M8 3.3h8l-.9 6.1a3.1 3.1 0 0 1-6.2 0z"/><line x1="12" y1="11.4" x2="12" y2="18.2"/><line x1="8.2" y1="20.3" x2="15.8" y2="20.3"/><line x1="12" y1="18.2" x2="12" y2="20.3"/>`,
+  spirit:   `<path d="M10.2 3h3.6v2.7l1.8 2.1v10.9a1.9 1.9 0 0 1-1.9 1.9h-3.4a1.9 1.9 0 0 1-1.9-1.9V7.8l1.8-2.1z"/><line x1="8.7" y1="12.6" x2="15.3" y2="12.6"/>`,
+  cocktail: `<path d="M4.2 4.2h15.6l-7.8 8.7z"/><line x1="12" y1="12.9" x2="12" y2="20.3"/><line x1="8.2" y1="20.3" x2="15.8" y2="20.3"/>`,
+  milkshake:`<path d="M8.2 5.8h7.6l-1 13.6a1 1 0 0 1-1 .9h-3.6a1 1 0 0 1-1-.9z"/><path d="M7.4 5.8c0-1.2 1-2.3 2.1-2.3h5c1.1 0 2.1 1.1 2.1 2.3"/><line x1="15.8" y1="2" x2="13.8" y2="6.3"/>`,
+  shot:     `<path d="M8.4 6.2h7.2l-.9 11.4a1 1 0 0 1-1 .9h-3.4a1 1 0 0 1-1-.9z"/>`
+};
+
+const ICON_RULES = [
+  [/chef/i,'chef'],
+  [/buffet breakfast|ordinary breakfast|custard/i,'egg'],
+  [/tea|coffee/i,'coffee'],
+  [/salad/i,'salad'],
+  [/soup/i,'soup'],
+  [/savory|savoury/i,'skewer'],
+  [/sandwich|burger/i,'burger'],
+  [/grill|kitchen/i,'flame'],
+  [/specialty/i,'platefork'],
+  [/pasta/i,'noodle'],
+  [/pizza/i,'pizza'],
+  [/local/i,'localbowl'],
+  [/dessert/i,'dessert'],
+  [/soft drink/i,'softcup'],
+  [/beer/i,'beer'],
+  [/wine/i,'wine'],
+  [/spirit/i,'spirit'],
+  [/mocktail|cocktail|splash/i,'cocktail'],
+  [/milkshake|smoothie/i,'milkshake'],
+  [/shooter/i,'shot'],
+  [/additional/i,'platefork']
+];
+
+function pickIcon(title){
+  for(const [re,key] of ICON_RULES){ if(re.test(title)) return key; }
+  return 'platefork';
+}
+
+function svgIcon(key){
+  const inner = ICONS[key] || ICONS.platefork;
+  return `<svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${inner}</svg>`;
+}
+
+function fmtPrice(p){
+  if(p === null || p === undefined) return null;
+  return CURRENCY + p;
+}
+
+function renderItem(it, idx){
+  const priceHtml = (it.price === null || it.price === undefined)
+    ? ''
+    : `<span class="item-price">${fmtPrice(it.price)}</span>`;
+  return `
+    <div class="item-row" style="--i:${idx||0}" data-search="${(it.name + ' ' + (it.desc||'')).toLowerCase()}">
+      <div class="item-main">
+        <div class="item-name">${it.name}</div>
+        ${it.desc ? `<div class="item-desc">${it.desc}</div>` : ''}
+      </div>
+      ${priceHtml}
+    </div>`;
+}
+
+function renderCategory(cat){
+  const iconKey = pickIcon(cat.title);
+  let html = `<div class="category-head"><div class="category-icon">${svgIcon(iconKey)}</div><h2>${cat.title}</h2><div class="category-rule"></div></div>`;
+  if(cat.note) html += `<div class="category-note">${cat.note}</div>`;
+  html += `<div class="items-grid">`;
+  let runningIdx = 0;
+  if(cat.items){
+    html += cat.items.map((it)=>renderItem(it, runningIdx++)).join('');
+  }
+  if(cat.subgroups){
+    cat.subgroups.forEach(sg=>{
+      html += `<div class="subgroup-title">${sg.title}</div>`;
+      html += sg.items.map((it)=>renderItem(it, runningIdx++)).join('');
+    });
+  }
+  html += `</div>`;
+  return html;
+}
+
+function renderDaily(days){
+  let html = `<div class="daily-card">`;
+  days.forEach(([day,opt])=>{
+    let optHtml;
+    if(Array.isArray(opt)){
+      optHtml = opt.map(([name,price])=>
+        `${name} <span class="item-price">${fmtPrice(price)}</span>`
+      ).join(' <span class="opt-or">or</span> ');
+    } else {
+      optHtml = opt;
+    }
+    html += `<div class="daily-row"><span class="day">${day}</span><span class="opt">${optHtml}</span></div>`;
+  });
+  html += `</div>`;
+  return html;
+}
+
+TABS.forEach((tab,i)=>{
+  const btn = document.createElement('button');
+  btn.className = 'tab-btn' + (i===0 ? ' active' : '');
+  btn.textContent = tab.label;
+  btn.dataset.tab = tab.id;
+  btn.addEventListener('click', ()=>{
+    document.getElementById('sec-'+tab.id).scrollIntoView({behavior:'smooth'});
+  });
+  tabsEl.appendChild(btn);
+
+  const section = document.createElement('div');
+  section.className = 'category';
+  section.id = 'sec-' + tab.id;
+  section.innerHTML = tab.categories.map(renderCategory).join('');
+  if(tab.daily){ section.innerHTML += renderDaily(tab.daily); }
+  rootEl.appendChild(section);
+});
+
+/* active tab highlight on scroll */
+const sections = TABS.map(t=>document.getElementById('sec-'+t.id));
+const tabBtns = [...tabsEl.children];
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(en=>{
+    if(en.isIntersecting){
+      const idx = sections.indexOf(en.target);
+      tabBtns.forEach(b=>b.classList.remove('active'));
+      if(tabBtns[idx]){
+        tabBtns[idx].classList.add('active');
+        tabBtns[idx].scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
+      }
+    }
+  });
+}, {rootMargin:'-140px 0px -70% 0px'});
+sections.forEach(s=>io.observe(s));
+
+/* scroll-reveal each category once, the first time it enters view */
+const revealObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(en=>{
+    if(en.isIntersecting){
+      en.target.classList.add('in-view');
+      revealObserver.unobserve(en.target);
+    }
+  });
+}, {threshold:0.06, rootMargin:'0px 0px -50px 0px'});
+sections.forEach(s=>revealObserver.observe(s));
+
+/* ============ Scroll effects: progress bar, hero parallax, condensing topbar, back-to-top ============ */
+(function(){
+  const topbarEl = document.getElementById('topbar');
+  const progressEl = document.getElementById('scroll-progress');
+  const heroContent = document.getElementById('hero-content');
+  const heroEl = document.getElementById('top');
+  const backToTop = document.getElementById('back-to-top');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let ticking = false;
+
+  function onScroll(){
+    const scrollY = window.scrollY || document.documentElement.scrollTop;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? Math.min(100, (scrollY / docHeight) * 100) : 0;
+    progressEl.style.width = progress + '%';
+
+    topbarEl.classList.toggle('scrolled', scrollY > 8);
+
+    const heroHeight = heroEl.offsetHeight || window.innerHeight;
+    if(!reduceMotion){
+      const p = Math.min(1, scrollY / heroHeight);
+      heroContent.style.setProperty('--parallax', Math.round(p * 110));
+      heroContent.style.setProperty('--hero-fade', Math.max(0, 1 - p * 1.4));
+    }
+
+    backToTop.classList.toggle('show', scrollY > heroHeight * 0.6);
+    if(scrollY > heroHeight * 0.5 && window.__pulseShowSwipeHint){ window.__pulseShowSwipeHint(); }
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', ()=>{
+    if(!ticking){ requestAnimationFrame(onScroll); ticking = true; }
+  }, {passive:true});
+
+  onScroll();
+
+  backToTop.addEventListener('click', ()=>{
+    window.scrollTo({top:0, behavior: reduceMotion ? 'auto' : 'smooth'});
+  });
+})();
+
+/* ============ Swipe between category tabs ============ */
+(function(){
+  const menuRoot = document.getElementById('menu-root');
+  const swipeHint = document.getElementById('swipe-hint');
+  const SWIPE_THRESHOLD = 70;
+  let touchStartX = 0, touchStartY = 0, touching = false, horizontalLock = false;
+
+  function currentTabIndex(){
+    const active = tabsEl.querySelector('.tab-btn.active');
+    const idx = tabBtns.indexOf(active);
+    return idx === -1 ? 0 : idx;
+  }
+  function goToTab(idx){
+    if(idx < 0 || idx >= TABS.length) return;
+    const target = document.getElementById('sec-' + TABS[idx].id);
+    if(target) target.scrollIntoView({behavior:'smooth'});
+  }
+
+  menuRoot.addEventListener('touchstart',(e)=>{
+    if(e.touches.length > 1) return;
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+    touching = true;
+    horizontalLock = false;
+    menuRoot.style.transition = 'none';
+  },{passive:true});
+
+  menuRoot.addEventListener('touchmove',(e)=>{
+    if(!touching || e.touches.length > 1) return;
+    const dx = e.touches[0].clientX - touchStartX;
+    const dy = e.touches[0].clientY - touchStartY;
+    if(!horizontalLock){
+      if(Math.abs(dx) > 14 && Math.abs(dx) > Math.abs(dy) * 1.4){
+        horizontalLock = true;
+      } else if(Math.abs(dy) > 14){
+        touching = false;
+        return;
+      } else {
+        return;
+      }
+    }
+    e.preventDefault();
+    const clamped = Math.max(-110, Math.min(110, dx * 0.45));
+    menuRoot.style.setProperty('--swipe-x', clamped + 'px');
+    menuRoot.style.setProperty('--swipe-rot', (clamped * 0.035) + 'deg');
+    menuRoot.classList.add('swiping');
+  },{passive:false});
+
+  menuRoot.addEventListener('touchend',(e)=>{
+    if(!touching){ touching = false; return; }
+    touching = false;
+    if(horizontalLock){
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      menuRoot.style.transition = 'transform .4s cubic-bezier(.34,1.56,.64,1)';
+      menuRoot.style.setProperty('--swipe-x','0px');
+      menuRoot.style.setProperty('--swipe-rot','0deg');
+      if(Math.abs(dx) > SWIPE_THRESHOLD){
+        const idx = currentTabIndex();
+        if(dx < 0){ goToTab(idx + 1); } else { goToTab(idx - 1); }
+        try{ localStorage.setItem('pulse-swipe-used','1'); }catch(err){}
+        swipeHint.classList.remove('show');
+      }
+    }
+    horizontalLock = false;
+  },{passive:true});
+
+  let hintShown = false;
+  window.__pulseShowSwipeHint = function(){
+    if(hintShown) return;
+    let used = false, dismissed = false;
+    try{
+      used = localStorage.getItem('pulse-swipe-used') === '1';
+      dismissed = localStorage.getItem('pulse-swipe-hint-seen') === '1';
+    }catch(err){}
+    if(used || dismissed) return;
+    hintShown = true;
+    swipeHint.classList.add('show');
+    setTimeout(()=>{
+      swipeHint.classList.remove('show');
+      try{ localStorage.setItem('pulse-swipe-hint-seen','1'); }catch(err){}
+    }, 3200);
+  };
+})();
+
+/* search */
+const searchInput = document.getElementById('search');
+searchInput.addEventListener('input', ()=>{
+  const q = searchInput.value.trim().toLowerCase();
+  if(q){
+    document.querySelectorAll('.category').forEach(c=>c.classList.add('in-view'));
+  }
+  const rows = document.querySelectorAll('.item-row');
+  let anyVisible = false;
+  rows.forEach(r=>{
+    const match = !q || r.dataset.search.includes(q);
+    r.style.display = match ? '' : 'none';
+    if(match) anyVisible = true;
+  });
+  noResultsEl.style.display = (q && !anyVisible) ? 'block' : 'none';
+});
+
+/* ============ PWA: manifest + icons ============ */
+const ICON_SVG = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='96' fill='%23120E0D'/><path d='M60 260 L170 260 L200 190 L240 340 L280 150 L310 260 L452 260' fill='none' stroke='%239C3252' stroke-width='26' stroke-linecap='round' stroke-linejoin='round'/></svg>`;
+const iconDataUri = 'data:image/svg+xml,' + ICON_SVG.replace(/'/g,'"').replace(/#/g,'%23').replace(/"/g,"'").replace(/</g,'%3C').replace(/>/g,'%3E');
+document.getElementById('apple-touch-icon').href = iconDataUri;
+document.getElementById('favicon-icon').href = iconDataUri;
+
+try{
+  const manifest = {
+    name: "Pulse Restaurant & Bar",
+    short_name: "Pulse",
+    start_url: ".",
+    scope: ".",
+    display: "standalone",
+    background_color: "#120E0D",
+    theme_color: "#120E0D",
+    icons: [{ src: iconDataUri, sizes: "512x512", type: "image/svg+xml", purpose: "any maskable" }]
+  };
+  document.getElementById('manifest-link').href =
+    'data:application/manifest+json,' + encodeURIComponent(JSON.stringify(manifest));
+}catch(e){ /* manifest not critical */ }
+
+/* ============ Add-to-home-screen prompt ============ */
+(function(){
+  const banner = document.getElementById('install-banner');
+  const goBtn = document.getElementById('install-go');
+  const closeBtn = document.getElementById('install-close');
+  const titleEl = document.getElementById('install-title');
+  const subEl = document.getElementById('install-sub');
+
+  let dismissed = false;
+  try{ dismissed = localStorage.getItem('pulse-install-dismissed') === '1'; }catch(e){}
+
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+
+  if(isStandalone || dismissed){
+    // no banner
+  } else if(isIOS){
+    titleEl.textContent = "Add Pulse to your Home Screen";
+    subEl.textContent = "Tap the Share icon, then \u201CAdd to Home Screen.\u201D";
+    goBtn.style.display = 'none';
+    setTimeout(()=>banner.classList.add('show'), 1400);
+  } else {
+    window.addEventListener('beforeinstallprompt', (e)=>{
+      e.preventDefault();
+      window.__deferredPrompt = e;
+      goBtn.style.display = 'inline-flex';
+      banner.classList.add('show');
+    });
+  }
+
+  goBtn.addEventListener('click', async ()=>{
+    const dp = window.__deferredPrompt;
+    if(dp){
+      dp.prompt();
+      await dp.userChoice;
+      window.__deferredPrompt = null;
+    }
+    banner.classList.remove('show');
+  });
+
+  closeBtn.addEventListener('click', ()=>{
+    banner.classList.remove('show');
+    try{ localStorage.setItem('pulse-install-dismissed','1'); }catch(e){}
+  });
+})();
+</script>
+</body>
+</html>
