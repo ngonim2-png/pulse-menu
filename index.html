@@ -15,6 +15,15 @@
 <link id="apple-touch-icon" rel="apple-touch-icon">
 <link id="favicon-icon" rel="icon" type="image/svg+xml">
 <link id="manifest-link" rel="manifest">
+<!--
+  USAGE INSIGHT (GoatCounter — free, no credit card, privacy-friendly, no cookies):
+  1. Go to https://www.goatcounter.com/ and sign up (just an email).
+  2. Pick a site code, e.g. "pulse-menu" — your dashboard becomes https://pulse-menu.goatcounter.com
+  3. Replace REPLACE-WITH-YOUR-CODE below with that site code. That's it — page views and every
+     tracked action (searches, favorites, orders, calls, shares) start showing up on your dashboard.
+  Until you do this, the script below simply fails silently and nothing on the site is affected.
+-->
+<script data-goatcounter="https://REPLACE-WITH-YOUR-CODE.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <style>
   :root{
     --ink:#1B1512;
@@ -457,6 +466,10 @@
   footer .foot-line{font-family:var(--font-ui); font-size:13px; line-height:2; color:#C9BEB4;}
   footer .foot-line a{ color:var(--cream-on-dark); text-decoration:underline; text-decoration-color:rgba(239,231,218,.35); text-underline-offset:3px; }
   footer .foot-line a:active{ color:var(--gold); }
+  footer .foot-credit{
+    font-family:var(--font-ui); font-size:10.5px; letter-spacing:.03em;
+    color:#8C8078; margin-top:22px;
+  }
 
   /* ---------- INSTALL PROMPT ---------- */
   .install-banner{
@@ -498,6 +511,31 @@
   }
   .install-close:active{ transform:scale(.85) rotate(90deg); }
   .install-close svg{width:15px;height:15px;}
+
+  /* ---------- UPDATE TOAST ---------- */
+  .update-toast{
+    position:fixed; left:50%; top:calc(12px + env(safe-area-inset-top,0px));
+    transform:translate(-50%, -140%);
+    z-index:95;
+    background:var(--near-black-2);
+    color:var(--cream-on-dark);
+    font-family:var(--font-ui);
+    font-size:12.5px;
+    display:flex; align-items:center; gap:12px;
+    padding:10px 10px 10px 16px;
+    border-radius:22px;
+    box-shadow:0 10px 26px rgba(0,0,0,.3);
+    transition:transform .45s cubic-bezier(.32,.72,0,1);
+    white-space:nowrap;
+  }
+  .update-toast.show{ transform:translate(-50%, 0); }
+  .update-toast button{
+    font-family:var(--font-ui); font-size:12px; font-weight:600;
+    background:var(--gold); color:var(--near-black);
+    border:none; border-radius:16px; padding:7px 14px; cursor:pointer;
+    transition:transform .3s cubic-bezier(.34,1.56,.64,1);
+  }
+  .update-toast button:active{ transform:scale(.92); }
 
   /* ---------- SWIPE HINT ---------- */
   .swipe-hint{
@@ -872,6 +910,7 @@
     .fav-fab-count{animation:none;}
     .order-fab-count{animation:none;}
     .sheet, .sheet-backdrop{transition:none;}
+    .update-toast{transition:none;}
   }
 </style>
 </head>
@@ -1019,6 +1058,7 @@
   <div class="foot-mark">Pulse</div>
   <div class="foot-sub">Restaurant &amp; Bar</div>
   <div class="foot-line">Cathedral House, 3 Gloucester Street, Freetown.<br><a href="tel:+23275200020">+232 75 200 020</a> · <a href="tel:+23231200020">+232 31 200 020</a></div>
+  <div class="foot-credit">Developed by DEAL Technologies</div>
 </footer>
 
 <!-- INSTALL PROMPT -->
@@ -1037,6 +1077,12 @@
 
     </button>
   </div>
+</div>
+
+<!-- UPDATE AVAILABLE TOAST -->
+<div class="update-toast" id="update-toast">
+  <span>A fresh menu update is ready.</span>
+  <button id="update-refresh" type="button">Refresh</button>
 </div>
 
 <script>
@@ -1072,7 +1118,7 @@ const TABS = [
       {
         title:"Ordinary Breakfast",
         note:"Eggs, sausage, butter, coffee or tea",
-        items:[ item("Ordinary Breakfast", 80) ]
+        items:[ item("Ordinary Breakfast", 100) ]
       },
       {
         title:"Custard",
@@ -1276,44 +1322,47 @@ const TABS = [
       {
         title:"Soft Drinks",
         items:[
-          item("Coke",40), item("Sprite",40), item("Fanta",40), item("Diet Coke",50), item("Vimto",50),
-          item("Club Soda",35), item("Tonic",50), item("Red Bull",50), item("Maltina",35),
-          item("Box Juice",120), item("Box Juice (Glass)",30), item("Local Fresh Ginger Beer",20),
-          item("Water — Small",10), item("Water — Large",20), item("Sparkling Water",50)
+          item("Coke",50), item("Sprite",50), item("Fanta",50), item("Diet Coke",60), item("Vimto",60),
+          item("Club Soda",35), item("Tonic",60), item("Red Bull",60), item("Maltina",50),
+          item("Box Juice",120), item("Glass of Juice",30), item("Local Fresh Ginger Beer",20),
+          item("Water — Small",15), item("Water — Large",25), item("Sparkling Water",60)
         ]
       },
       {
         title:"Beer",
         items:[
-          item("Mutzig",45), item("Star",40), item("Becks",60), item("Heineken",80),
-          item("Cider",80), item("Amstel",50), item("Guinness Can",50)
+          item("Mutzig",60), item("Star",45), item("Becks",60), item("Heineken",80),
+          item("Cider",80), item("Amstel",50), item("Guinness Bottle",60)
         ]
       },
       {
         title:"Wines",
         subgroups:[
-          {title:"White Wines", items:[
-            item("Glass House Wine White",50,"Fresh and fruity, loaded with notes of tropical exotic and fresh pears — a crispy wine")
+          {title:"Wines", items:[
+            item("Bottle of Red Wine",650),
+            item("White Wine",600),
+            item("Prosecco",650),
+            item("Glass of Wine",180)
           ]}
         ]
       },
       {
         title:"Spirits",
         subgroups:[
-          {title:"Vodka", items:[ item("Grey Goose",40), item("Absolut Blue",30) ]},
-          {title:"Gin", items:[ item("Bombay Sapphire",35), item("Tanqueray",30) ]},
-          {title:"Tequila", items:[ item("Tequila",35) ]},
+          {title:"Vodka", items:[ item("Grey Goose",50), item("Absolut Blue",50) ]},
+          {title:"Gin", items:[ item("Bombay Sapphire",50), item("Tanqueray",50) ]},
+          {title:"Tequila", items:[ item("Tequila",80) ]},
           {title:"Single Malt Whisky", items:[ item("Glenfiddich",60) ]},
           {title:"Aged Whisky", items:[ item("Chivas 12 Years",50) ]},
           {title:"Premium Whiskey", items:[ item("Johnny Walker Black Label",50) ]},
-          {title:"Bourbon Whisky", items:[ item("Jack Daniels",40) ]},
-          {title:"Rum", items:[ item("Bacardi Black / White",30), item("Captain Morgan Dark",30), item("Captain Morgan Spiced",30) ]},
+          {title:"Bourbon Whisky", items:[ item("Jack Daniels",50) ]},
+          {title:"Rum", items:[ item("Bacardi Black / White",60), item("Captain Morgan Dark",50), item("Captain Morgan Spiced",50) ]},
           {title:"Cognac", items:[ item("Hennessy VSOP",55), item("Courvoisier VSOP",60) ]},
           {title:"Liqueurs", items:[
-            item("Martini Rosso / Bianco",30), item("Pimm's",30), item("Pernod",30), item("Baileys",30),
-            item("Kahlua",30), item("Tia Maria",30), item("Amarula",30), item("Jagermeister",30),
-            item("Campari",30), item("Contreau",30), item("Camillo",30), item("Fireballs Cinnamon",30),
-            item("Sambuka",30), item("Grand Mariner",30)
+            item("Martini Rosso / Bianco",50), item("Pimm's",50), item("Pernod",50), item("Baileys",50),
+            item("Kahlua",50), item("Tia Maria",50), item("Amarula",50), item("Jagermeister",50),
+            item("Campari",50), item("Contreau",50), item("Camillo",50), item("Fireballs Cinnamon",50),
+            item("Sambuka",50), item("Grand Mariner",50)
           ]}
         ]
       }
@@ -1451,6 +1500,21 @@ function fmtPrice(p){
   return CURRENCY + p;
 }
 
+/* Fires a custom analytics event if GoatCounter is loaded and configured; a silent
+   no-op otherwise, so every call site below stays safe with or without analytics set up. */
+function trackEvent(path, title){
+  try{
+    if(window.goatcounter && typeof window.goatcounter.count === 'function'){
+      window.goatcounter.count({ path: path, title: title || path, event: true });
+    }
+  }catch(err){}
+}
+
+try{
+  const callFabEl = document.getElementById('call-fab');
+  if(callFabEl){ callFabEl.addEventListener('click', ()=>trackEvent('/call', 'Tapped call button')); }
+}catch(err){}
+
 let __itemCounter = 0;
 const ITEM_REGISTRY = {};
 
@@ -1540,6 +1604,7 @@ TABS.forEach((tab,i)=>{
   btn.dataset.tab = tab.id;
   btn.addEventListener('click', ()=>{
     document.getElementById('sec-'+tab.id).scrollIntoView({behavior:'smooth'});
+    trackEvent('/tab/' + tab.id, 'Tab: ' + tab.label);
   });
   tabsEl.appendChild(btn);
 
@@ -1724,6 +1789,7 @@ try{
 /* search — isolated so it can never be broken by any other feature on the page */
 try{
   const searchInput = document.getElementById('search');
+  let searchTrackTimer = null;
   searchInput.addEventListener('input', ()=>{
     const q = searchInput.value.trim().toLowerCase();
     if(q){
@@ -1737,6 +1803,13 @@ try{
       if(match) anyVisible = true;
     });
     noResultsEl.style.display = (q && !anyVisible) ? 'block' : 'none';
+
+    clearTimeout(searchTrackTimer);
+    if(q.length >= 2){
+      searchTrackTimer = setTimeout(()=>{
+        trackEvent('/search/' + encodeURIComponent(q), 'Search: ' + q + (anyVisible ? '' : ' (no results)'));
+      }, 800);
+    }
   });
 }catch(err){ console.error('Pulse: search failed to initialize', err); }
 
@@ -1822,11 +1895,15 @@ try{
   }
 
   function toggleFavorite(id){
+    const adding = !favorites.has(id);
     if(favorites.has(id)){ favorites.delete(id); } else { favorites.add(id); }
     saveFavorites();
     document.querySelectorAll(`.fav-btn[data-id="${id}"]`).forEach(b=>b.classList.toggle('active', favorites.has(id)));
     updateFavFab();
     if(favSheet.classList.contains('show')) renderFavList();
+    if(adding && ITEM_REGISTRY[id]){
+      trackEvent('/favorite/' + encodeURIComponent(ITEM_REGISTRY[id].name), 'Favorited: ' + ITEM_REGISTRY[id].name);
+    }
   }
 
   // Initialize star states for any favorites saved from a previous visit
@@ -1900,6 +1977,7 @@ try{
     if(!it) return;
     const priceStr = (it.price !== null && it.price !== undefined) ? ` — ${fmtPrice(it.price)}` : '';
     doShare(`${it.name}${priceStr} at Pulse Restaurant & Bar`, it.name);
+    trackEvent('/share/' + encodeURIComponent(it.name), 'Shared dish: ' + it.name);
   };
 
   function shareFavorites(){
@@ -1914,6 +1992,7 @@ try{
     });
     const totalLine = hasAllPrices ? `\nTotal: ${fmtPrice(total)}` : '';
     doShare(`My picks at Pulse Restaurant & Bar:\n${lines.join('\n')}${totalLine}`, 'My Picks at Pulse');
+    trackEvent('/share/favorites', 'Shared favorites list (' + favorites.size + ' items)');
   }
 
   shareClose.addEventListener('click', ()=>closeSheet(shareSheet, shareBackdrop));
@@ -1987,6 +2066,9 @@ try{
 
   function addOne(id){
     setQty(id, (cart[id] || 0) + 1);
+    if(ITEM_REGISTRY[id]){
+      trackEvent('/order-add/' + encodeURIComponent(ITEM_REGISTRY[id].name), 'Added to order: ' + ITEM_REGISTRY[id].name);
+    }
   }
 
   function renderOrderList(){
@@ -2094,9 +2176,35 @@ try{
     const totalLine = hasAllPrices ? `\n\nTotal: ${fmtPrice(total)}` : '\n\n(Some items need price confirmation)';
     const message = `New order from the Pulse digital menu:\n\n${lines.join('\n')}${totalLine}`;
     window.open('https://wa.me/' + ORDER_PHONE + '?text=' + encodeURIComponent(message), '_blank');
+    const itemCount = ids.reduce((sum,id)=>sum + cart[id], 0);
+    trackEvent('/order-sent', 'Order sent via WhatsApp (' + itemCount + ' items' + (hasAllPrices ? ', ' + fmtPrice(total) : '') + ')');
   });
 })();
 }catch(err){ console.error('Pulse: order cart failed', err); }
+
+/* ============ Offline support: service worker registration ============ */
+try{
+if('serviceWorker' in navigator){
+  window.addEventListener('load', ()=>{
+    navigator.serviceWorker.register('/sw.js').then((reg)=>{
+      reg.addEventListener('updatefound', ()=>{
+        const newWorker = reg.installing;
+        if(!newWorker) return;
+        newWorker.addEventListener('statechange', ()=>{
+          if(newWorker.state === 'installed' && navigator.serviceWorker.controller){
+            const toast = document.getElementById('update-toast');
+            if(toast) toast.classList.add('show');
+          }
+        });
+      });
+    }).catch(()=>{});
+  });
+  const updateRefreshBtn = document.getElementById('update-refresh');
+  if(updateRefreshBtn){
+    updateRefreshBtn.addEventListener('click', ()=>{ window.location.reload(); });
+  }
+}
+}catch(err){ console.error('Pulse: service worker registration failed', err); }
 
 /* ============ PWA: manifest + icons ============ */
 try{
@@ -2108,8 +2216,8 @@ try{
   const manifest = {
     name: "Pulse Restaurant & Bar",
     short_name: "Pulse",
-    start_url: ".",
-    scope: ".",
+    start_url: "/",
+    scope: "/",
     display: "standalone",
     background_color: "#120E0D",
     theme_color: "#120E0D",
