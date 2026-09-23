@@ -2221,12 +2221,20 @@ try{
   // for this visit — it will show again next time, until the guest installs it.
   const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
   const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  const isIOSChrome = isIOS && /crios/i.test(navigator.userAgent);
+  const isIOSFirefox = isIOS && /fxios/i.test(navigator.userAgent);
 
   if(isStandalone){
     // already installed — no banner
   } else if(isIOS){
     titleEl.textContent = "Add Pulse to your Home Screen";
-    subEl.textContent = "Tap the Share icon, then \u201CAdd to Home Screen.\u201D";
+    if(isIOSChrome){
+      subEl.textContent = "Tap the Share icon in the address bar (top right), then \u201CAdd to Home Screen.\u201D";
+    } else if(isIOSFirefox){
+      subEl.textContent = "Tap the menu (\u2022\u2022\u2022), then \u201CShare,\u201D then \u201CAdd to Home Screen.\u201D";
+    } else {
+      subEl.textContent = "Tap the Share icon at the bottom of the screen, then \u201CAdd to Home Screen.\u201D";
+    }
     goBtn.style.display = 'none';
     setTimeout(()=>banner.classList.add('show'), 1400);
   } else {
