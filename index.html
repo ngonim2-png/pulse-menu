@@ -2236,14 +2236,14 @@ try{
   const titleEl = document.getElementById('install-title');
   const subEl = document.getElementById('install-sub');
 
-  let dismissed = false;
-  try{ dismissed = localStorage.getItem('pulse-install-dismissed') === '1'; }catch(e){}
-
+  // The ONLY thing that permanently stops this banner is the app actually being
+  // installed (detected via standalone display mode). Dismissing it just hides it
+  // for this visit — it will show again next time, until the guest installs it.
   const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
   const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
 
-  if(isStandalone || dismissed){
-    // already installed or previously dismissed — no banner
+  if(isStandalone){
+    // already installed — no banner
   } else if(isIOS){
     titleEl.textContent = "Add Pulse to your Home Screen";
     subEl.textContent = "Tap the Share icon, then \u201CAdd to Home Screen.\u201D";
@@ -2263,7 +2263,7 @@ try{
     // Fallback: many browsers (Samsung Internet, Firefox, in-app browsers) never
     // fire beforeinstallprompt at all — show manual instructions instead of nothing.
     setTimeout(()=>{
-      if(!promptFired && !dismissed){
+      if(!promptFired){
         titleEl.textContent = "Add Pulse to your Home Screen";
         subEl.textContent = "Open your browser menu and choose \u201CAdd to Home screen\u201D or \u201CInstall app.\u201D";
         goBtn.style.display = 'none';
@@ -2282,12 +2282,10 @@ try{
       window.__deferredPrompt = null;
     }
     banner.classList.remove('show');
-    try{ localStorage.setItem('pulse-install-dismissed','1'); }catch(e){}
   });
 
   closeBtn.addEventListener('click', ()=>{
     banner.classList.remove('show');
-    try{ localStorage.setItem('pulse-install-dismissed','1'); }catch(e){}
   });
 })();
 }catch(err){ console.error('Pulse: install prompt failed', err); }
