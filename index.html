@@ -12,9 +12,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Playball&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
-<link id="apple-touch-icon" rel="apple-touch-icon">
-<link id="favicon-icon" rel="icon" type="image/svg+xml">
-<link id="manifest-link" rel="manifest">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
+<link rel="manifest" href="/manifest.json">
 <!--
   USAGE INSIGHT (GoatCounter — free, no credit card, privacy-friendly, no cookies):
   1. Go to https://www.goatcounter.com/ and sign up (just an email).
@@ -2205,27 +2206,6 @@ if('serviceWorker' in navigator){
   }
 }
 }catch(err){ console.error('Pulse: service worker registration failed', err); }
-
-/* ============ PWA: manifest + icons ============ */
-try{
-  const ICON_SVG = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='96' fill='%23120E0D'/><path d='M60 260 L170 260 L200 190 L240 340 L280 150 L310 260 L452 260' fill='none' stroke='%239C3252' stroke-width='26' stroke-linecap='round' stroke-linejoin='round'/></svg>`;
-  const iconDataUri = 'data:image/svg+xml,' + ICON_SVG.replace(/'/g,'"').replace(/#/g,'%23').replace(/"/g,"'").replace(/</g,'%3C').replace(/>/g,'%3E');
-  document.getElementById('apple-touch-icon').href = iconDataUri;
-  document.getElementById('favicon-icon').href = iconDataUri;
-
-  const manifest = {
-    name: "Pulse Restaurant & Bar",
-    short_name: "Pulse",
-    start_url: "/",
-    scope: "/",
-    display: "standalone",
-    background_color: "#120E0D",
-    theme_color: "#120E0D",
-    icons: [{ src: iconDataUri, sizes: "512x512", type: "image/svg+xml", purpose: "any maskable" }]
-  };
-  document.getElementById('manifest-link').href =
-    'data:application/manifest+json,' + encodeURIComponent(JSON.stringify(manifest));
-}catch(err){ console.error('Pulse: icon/manifest setup failed', err); }
 
 /* ============ Add-to-home-screen prompt ============ */
 try{
